@@ -1,32 +1,36 @@
 /*
-	Versao inicial do programa da lista linear de números	implementada por CONTIGUIDADE.
-	Faz a exclusão de elementos da lista.
-	Utiliza subrotina para impressao.
+	Versao inicial do programa da lista linear de números
+	implementada por CONTIGUIDADE.
+	Faz a exclusão de elementos da lista. 
 	Utiliza descritor estruturado e subrotinas.
 */
 #include <stdio.h>
 #include <stdlib.h>
 
+#define TRUE	1
+#define FALSE	0
 #define MAXIMO 50
 
 typedef int TItem;
 
-typedef struct regLista {
-	TItem numeros[MAXIMO];
-	int final, soma, qtde;
+typedef struct
+{	
+	int inicio, final, qtde, soma;
+	TItem lista[MAXIMO];	
 } TLista;
 
-void ImprimeLista(TLista, char *);
+void ImprimeLista(TLista *, char *);
 void InicializaLista(TLista *);
+int IncluiItem(TLista *, int);
+int ExcluiItem(TLista *, int);
 
 int main(void)
 {	
-	int numero, cont;
+	int numero;
 	TLista lista;
-
-	InicializaLista(&lista);
 	
-	while (1)
+	InicializaLista(&lista);
+	while (TRUE)
 	{	
 		printf("Informe o numero:\n");
 		scanf("%d", &numero);
@@ -34,17 +38,16 @@ int main(void)
 		if (numero < 0)
 			break;
 
-		lista.numeros[lista.final] = numero;
-
-		/* atualizando os demais descritores da lista */
-		lista.final++;
-		lista.soma += numero;
-		lista.qtde++;
+		if (IncluiItem(&lista, numero) == FALSE)
+		{	
+			puts("Memoria insuficiente para esta operacao");
+			return 2;
+		}
 	}
 
-	ImprimeLista(lista, "Conteudo da lista:");
+	ImprimeLista(&lista, "Conteudo da lista:");
 		
-	while (1)
+	while (TRUE)
 	{	
 		printf("Informe o valor a excluir: ");
 		scanf("%d", &numero);
@@ -52,60 +55,82 @@ int main(void)
 		if (numero < 0)
 			break;
 		
-		/* Procurando o item a ser excluido */
-		cont = 0;
-		while (cont < lista.final && numero != lista.numeros[cont])
-			cont++;
-	
-		if (cont == lista.final)
-			puts("Valor nao encontrado\n");
+		if (ExcluiItem(&lista, numero) == FALSE)
+			puts("Valor nao encontrado");
 		else
-		{	
-			/* trazendo os elementos posteriores ao eliminado para o elemento anterior */
-			while (cont < lista.final)
-			{
-				lista.numeros[cont] = lista.numeros[cont + 1];
-				cont++;
-			}
-			
-			/* atualizando os demais descritores da lista */
-			lista.final--;
-			lista.soma -= numero;
-			lista.qtde--;
-
-			ImprimeLista(lista, "Novo conteudo da lista:");
-		}
+			ImprimeLista(&lista, "Novo conteudo da lista:");			
 	}
 	
 	return 0;
 }
 
-void ImprimeLista(TLista lista, char *cabec)
+void InicializaLista(TLista *lista)
+{	
+	lista->inicio = 0;
+	lista->final = 0;
+	lista->qtde = 0;
+	lista->soma = 0;
+}
+
+void ImprimeLista(TLista *lista, char *cabec)
 {	
 	/* imprimindo os valores da lista */
 	int cont;
 
-	if (lista.final == 0)
-		puts("\nLista vazia\n");
+	if (lista->final == 0)
+		puts("Lista vazia");
 	else
 	{	
 		printf("\n\n\n%s\n", cabec);
-
 		cont = 0;
-		while (cont != lista.final)
+		while (cont != lista->final)
 		{	
-			printf("%d\n", lista.numeros[cont]);
-			cont++;
+			printf("%d\n", lista->lista[cont]);
+			cont = cont + 1;
 		}
 		
-		printf("Soma = %d   Media = %.2f\n", lista.soma, lista.soma / (float)lista.qtde);
+		printf("Soma = %d   Media = %.2f\n", lista->soma, lista->soma / (float)lista->qtde);
 	}
 }
 
-void InicializaLista(TLista *lista)
-{
-	/* inicializa o conjunto de descritores da lista */
-	lista->final = 0;
-	lista->soma = 0;
-	lista->qtde = 0;
+int IncluiItem(TLista *lista, int valor)
+{	
+	if (lista->final == MAXIMO)
+		return FALSE;
+	
+	lista->lista[lista->final] = valor;
+	lista->final = lista->final + 1;
+	lista->qtde = lista->qtde + 1;
+	lista->soma = lista->soma + valor;
+
+	return TRUE;
+}
+
+int ExcluiItem(TLista *lista, int valor)
+{	
+	int cont;
+
+	/* Procurando o item a ser excluido */
+	cont = 0;
+	while (cont < lista->final && valor != lista->lista[cont])
+		cont = cont + 1;
+	
+	if (cont == lista->final)
+		return FALSE;
+	else
+	{	
+		/* trazendo os elementos posteriores ao eliminado
+			para o elemento anterior */
+		while (cont < lista->final)
+		{	
+			lista->lista[cont] = lista->lista[cont + 1];
+			cont = cont + 1;
+		}
+			
+		lista->final = lista->final - 1;
+		lista->qtde = lista->qtde - 1;
+		lista->soma = lista->soma - valor;
+	}
+		
+	return TRUE;
 }
