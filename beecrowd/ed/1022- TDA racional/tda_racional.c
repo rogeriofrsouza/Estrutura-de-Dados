@@ -15,8 +15,7 @@
 */
 #include <stdio.h>
 
-typedef struct rac 
-{
+typedef struct {
   int num, den;
 } TRac;
 
