@@ -21,8 +21,7 @@ typedef struct regCamisa {
 typedef struct regLista {
   PCamisa *camisas;
   struct regLista *prox;
-  int qtde;
-  int final;
+  int qtde, final;
 } PLista;
 
 void OrdenaPorCor(PLista *);
@@ -42,10 +41,10 @@ int main()
 
   while (1)
   {
-    /* criando uma variável struct regLista dinamicamente */
+    /* criando uma variável struct PLista dinamicamente */
     aux = (PLista *) malloc(sizeof(PLista));
 
-    /* preenchendo os campos de regLista */
+    /* preenchendo os campos de PLista */
     printf("\nInforme a quantidade de camisas: ");
     scanf("%d", &aux->qtde);
 
@@ -54,7 +53,7 @@ int main()
     if (aux->qtde <= 0)
       break;
 
-    /* criando um vetor de struct regcamisa dinamicamente */
+    /* criando um vetor de struct PCamisa dinamicamente */
     aux->camisas = (PCamisa *) malloc(aux->qtde * sizeof(PCamisa));
 
     /* inserindo registros de camisas */
@@ -101,7 +100,7 @@ int main()
 
     /* por nome */
     OrdenaPorNome(aux, cores, tamanhos);
-    
+
     aux = aux->prox;
   }
 
@@ -132,10 +131,11 @@ void OrdenaPorCor(PLista *aux)
   PCamisa camisa;
   int i, j;
 
-  for (i = 0; i < aux->final; i++)
+  for (i = 0; i <= aux->final-1; i++)
   {
-    for (j = i+1; j < aux->final; j++)
+    for (j = i+1; j <= aux->final; j++)
     {
+      /* ordena cores: branco, vermelho */
       if ((int)aux->camisas[i].cor[0] > (int)aux->camisas[j].cor[0])
       {
         camisa = aux->camisas[i];
@@ -146,6 +146,7 @@ void OrdenaPorCor(PLista *aux)
   }
 }
 
+
 void OrdenaPorTamanho(PLista *aux, char *cores)
 {
   PCamisa camisa;
@@ -153,14 +154,15 @@ void OrdenaPorTamanho(PLista *aux, char *cores)
 
   for (c = 0; c < 2; c++)
   {
-    for (i = 0; i < aux->final; i++)
+    for (i = 0; i <= aux->final-1; i++)
     {
-      for (j = 1; j < aux->final-1; j++)
+      for (j = i+1; j <= aux->final; j++)
       {
-        /* branco, vermelho */
+        /* compara a cor das camisas */
         if ((aux->camisas[i].cor[0] == cores[c]) && (aux->camisas[j].cor[0] == cores[c]))
         {
-          if ((int)aux->camisas[i].tamanho > (int)aux->camisas[j].tamanho)
+          /* ordena tamanhos: P, M, G */
+          if ((int)aux->camisas[i].tamanho < (int)aux->camisas[j].tamanho)
           {
             camisa = aux->camisas[i];
             aux->camisas[i] = aux->camisas[j];
@@ -181,14 +183,17 @@ void OrdenaPorNome(PLista *aux, char *cores, char *tamanhos)
   {
     for (t = 0; t < 3; t++)
     {
-      for (i = 0; i < aux->final; i++)
+      for (i = 0; i <= aux->final-1; i++)
       {
-        for (j = 1; j < aux->final-1; j++)
+        for (j = i+1; j <= aux->final; j++)
         {
+          /* compara a cor das camisas */
           if ((aux->camisas[i].cor[0] == cores[c]) && (aux->camisas[j].cor[0] == cores[c]))
           {
+            /* compara o tamanho das camisas */
             if ((aux->camisas[i].tamanho == tamanhos[t]) && (aux->camisas[j].tamanho == tamanhos[t]))
             {
+              /* ordena nomes em ordem alfabética */
               if ((int)aux->camisas[i].nome[0] > (int)aux->camisas[j].nome[0])
               {
                 camisa = aux->camisas[i];
