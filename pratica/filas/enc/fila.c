@@ -5,28 +5,28 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct regLista 
+struct regfila 
 {
   int valor;
-  struct regLista *prox;
+  struct regfila *prox;
 };
-typedef struct regLista TLista;
+typedef struct regfila Tfila;
 
 struct descrFila 
 {
-  TLista *inicio;
-  TLista *final;
+  Tfila *inicio;
+  Tfila *final;
   int qtde;
 };
 typedef struct descrFila DFila;
 
 int main(void)
 {
-  TLista *aux;
+  Tfila *aux;
   DFila descr;
   int numero;
 
-  /* inicializando o descritor da fila */
+  /* inicializando os descritores da fila */
    descr.inicio = NULL;
    descr.final = NULL;
    descr.qtde = 0;
@@ -39,8 +39,8 @@ int main(void)
     if (numero < 0)
       break;
     
-    /* alocando a struct TLista dinamicamente */
-    aux = (TLista *) malloc(sizeof(TLista));
+    /* alocando a struct Tfila dinamicamente */
+    aux = (Tfila *) malloc(sizeof(Tfila));
 
     /* preenchendo os valores da struct alocada */
     aux->valor = numero;
@@ -82,12 +82,12 @@ int main(void)
         descr.final = NULL;
       
       /* excluindo um valor da fila */
-      printf("\nExcluindo o valor %d da lista\n", aux->valor);
+      printf("\nExcluindo o valor %d da fila\n", aux->valor);
       free(aux);
     }
     else
     {
-      printf("\nA lista está vazia\n");
+      printf("\nA fila está vazia\n");
       break;
     }
   }

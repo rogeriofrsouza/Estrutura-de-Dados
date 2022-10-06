@@ -44,7 +44,7 @@ int main(void)
     aux->valor = num;
     aux->prox = descr.topo;
 
-    /* atualizando o descritor */
+    /* atualizando os descritores */
     descr.topo = aux;
     descr.qtde++;
   }
