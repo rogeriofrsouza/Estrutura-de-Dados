@@ -1,8 +1,7 @@
-// 6) Escreva as instruções necessárias em linguagem C para produzir a situação apresentada na figura.
+/* 6) Escreva as instruções necessárias em linguagem C para produzir a situação apresentada na figura. */
+#include <stdio.h>
 
-#include<stdio.h>
-
-int main(void) 
+int main()
 {
   float valor, *a, *b, *c;
 
@@ -13,4 +12,6 @@ int main(void)
 
   printf("A: %f\n", *a);
   printf("C: %f", *c);
+
+  return 0;
 }

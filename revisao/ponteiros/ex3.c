@@ -1,8 +1,7 @@
-// 3) Considerando as definições em C apresentadas a seguir, faça testes em programas e responda às questões formuladas.
+/* 3) Considerando as definições em C apresentadas a seguir, faça testes em programas e responda às questões formuladas. */
+#include <stdio.h>
 
-#include<stdio.h>
-
-int main() 
+int main()
 {
   float valores[10], *p;
 
@@ -13,10 +12,10 @@ int main()
   printf("%p %p\n", valores, p);
   
   p = &valores[1];
-  printf("%x %p\n", p - valores, p);
+  printf("%lx %p\n", p - valores, p);
   
   p = &valores[6];
-  printf("%x %p\n", p - valores, p);
+  printf("%lx %p\n", p - valores, p);
 
   return 0;
 }

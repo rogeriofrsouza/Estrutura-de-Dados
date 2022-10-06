@@ -1,11 +1,16 @@
-// 2) Supondo o par de instruções a seguir, desenhe a variável vDados.
+/* 2) Supondo o par de instruções a seguir, desenhe a variável vDados. */
+#include <stdio.h>
 
-void main() 
+struct regDados {
+  int codigo;
+  float preco;
+  long long int id;
+  int qtde;
+};
+
+int main() 
 {
-  struct regDados {int codigo;
-                   float preco;
-                   long long int id;
-                   int qtde;};
-                   
   struct regDados vDados;
+
+  return 0; 
 }

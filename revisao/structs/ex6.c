@@ -2,20 +2,24 @@
   6) Para a variável clientes desenhada a seguir, e cuja definição se encontra especificada no código em C fornecido, 
   escreva as instruções capazes de atribuir todos os valores indicados na figura.
 */
+#include <stdio.h>
+#include <string.h>
+  
+typedef struct data {
+  unsigned char dia, mes; 
+  unsigned short int ano;
+} TData;
 
-#include<stdio.h>
-#include<string.h>
+typedef struct cliente {
+  int cod; 
+  char nome[51]; 
+  TData dtUltCompra; 
+  float vrTotal; 
+  int qtdes[3];
+} TCliente;
 
-void main() 
+int main() 
 {
-  typedef struct {unsigned char dia, mes; unsigned short int ano;} TData;
-
-  typedef struct {int cod; 
-                  char nome[51]; 
-                  TData dtUltCompra; 
-                  float vrTotal; 
-                  int qtdes[3];} TCliente;
-
   TCliente clientes[20];
 
   for (int i = 0; i < 20; i++) 
@@ -33,4 +37,6 @@ void main()
   clientes[0].qtdes[0] = 10;
   clientes[0].qtdes[1] = 25;
   clientes[0].qtdes[2] = 18;
+
+  return 0;
 }

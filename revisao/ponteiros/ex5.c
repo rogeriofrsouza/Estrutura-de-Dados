@@ -1,4 +1,7 @@
-int main(void) 
+#include <stdio.h>
+#include <string.h>
+
+int main() 
 {
   char texto[25], palavra[15], descr[11], *p1, *p2;
 
@@ -11,6 +14,8 @@ int main(void)
 
   scanf("%s", p2); /* O usuário digita "goiaba" aqui */
   strcpy(&texto[6], " de trapo");
+
+  return 0;
 }
 
 /*

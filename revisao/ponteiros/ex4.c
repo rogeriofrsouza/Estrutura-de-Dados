@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(void)
+int main()
 { 
   int n[] = {7, 8, 9};
   int *p;
@@ -8,7 +8,9 @@ int main(void)
   p = &n[0];
   p++;
 
-  printf("Valor: %d ", *p);  // 8
+  printf("Valor: %d\n", *p);  /* 8 */
   (*p)++;
-  printf("Valor: %d\n", *p);  // 9
+  printf("Valor: %d", *p);  /* 9 */
+
+  return 0;
 }
