@@ -5,24 +5,26 @@
 */
 #include <stdlib.h>
 #include <stdio.h>
+
 #define MAX 50
 
-struct descrFila 
+struct fila 
 {
-  int inicio, final;
+  int inicio, fim;
   int vet[MAX];
 };
-typedef struct descrFila DFila;
+typedef struct fila Fila;
 
 int main(void)
 {
-  DFila descr;
+  Fila fila;
   int num, i, aux;
 
-  /* inicializando o descritor da fila */
-  descr.final = 0;
+  /* inicializando a fila */
+  fila.inicio = 0;
+  fila.fim = 0;
   
-  while (descr.final < MAX)
+  while (fila.fim < MAX-1)
   {
     printf("Informe o número:\n");
     scanf("%d", &num);
@@ -31,47 +33,34 @@ int main(void)
       break;
     
     /* preenchendo os valores da fila */
-    descr.vet[descr.final] = num;
+    fila.vet[fila.fim] = num;
 
     /* atualizando o descritor */
-    descr.final++;
-
-    if (descr.final == 1)
-      descr.inicio = 0;
+    fila.fim++;
   }
 
-  while (1)
+  while (fila.inicio != fila.fim)
   {
-    /* imprime fila */
+    /* imprimindo fila */
     printf("\n\nConteúdo da fila:\n");
     
-    for (i = descr.inicio; i < descr.final; i++)
-      printf("%d\n", descr.vet[i]);
+    for (i = fila.inicio; i < fila.fim; i++)
+      printf("%d\n", fila.vet[i]);
 
     printf("\nDigite 1 para excluir ou outra coisa para encerrar:\n");
     scanf("%d", &num);
 
     if (num != 1)
-      break;
-    
-    /* verifica se a fila está vazia */
-    if (descr.final > 0)
-    {
-      aux = descr.vet[descr.inicio];
+      exit(2);
 
-      /* excluindo um valor da fila */
-      printf("\nExcluindo o valor %d da fila\n", aux);
-      descr.inicio++;
+    aux = fila.vet[fila.inicio];
 
-      if (descr.inicio == descr.final)
-        descr.final = 0;
-    }
-    else
-    {
-      printf("\nA lista está vazia\n");
-      break;
-    }
+    /* excluindo um valor da fila */
+    printf("\nExcluindo o valor %d da fila\n", aux);
+    fila.inicio++;
   }
+
+  printf("\nA lista está vazia\n");
 
   return 0;
 }

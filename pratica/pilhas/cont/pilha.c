@@ -5,19 +5,24 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+
 #define MAX 50
 
-struct descrPilha 
+struct pilha 
 {
   int topo, qtde;
   int vet[MAX];
 };
-typedef struct descrPilha DPilha;
+typedef struct pilha Pilha;
 
 int main(void)
 {
-  DPilha descr;
+  Pilha pilha;
   int num, i, aux;
+
+  /* inicializando a pilha */
+  pilha.topo = 0;
+  pilha.qtde = 0;
 
   for (i = 0; i < MAX; i++)
   {
@@ -28,43 +33,36 @@ int main(void)
       break;
     
     /* preenchendo os valores da pilha */
-    descr.vet[i] = num;
+    pilha.vet[i] = num;
 
-    /* atualizando o descritor */
-    descr.topo = i;
-    descr.qtde++;
+    /* atualizando os descritores */
+    pilha.topo = i;
+    pilha.qtde++;
   }
 
-  while (1)
+  while (pilha.qtde > 0)
   {
-    /* imprime pilha */
+    /* imprimindo pilha */
     printf("\n\nConteúdo da pilha:\n");
     
-    for (i = descr.topo; i >= 0; i--)
-      printf("%d\n", descr.vet[i]);
+    for (i = pilha.topo; i >= 0; i--)
+      printf("%d\n", pilha.vet[i]);
 
     printf("\nDigite 1 para excluir ou outra coisa para encerrar:\n");
     scanf("%d", &num);
 
     if (num != 1)
-      break;
+      exit(1);
     
-    /* verifica se a pilha está vazia */
-    if (descr.qtde > 0)
-    {
-      aux = descr.vet[descr.topo];
-      descr.topo--;
-      descr.qtde--;
-      
-      /* excluindo um valor da pilha */
-      printf("\nExcluindo o valor %d da pilha\n", aux);
-    }
-    else
-    {
-      printf("\nA lista está vazia\n");
-      break;
-    }
+    aux = pilha.vet[pilha.topo];
+    
+    /* excluindo um valor da pilha */
+    printf("\nExcluindo o valor %d da pilha\n", aux);
+    pilha.topo--;
+    pilha.qtde--;
   }
+
+  printf("\nA lista está vazia\n");
 
   return 0;
 }
