@@ -3,4 +3,13 @@
 .bashrc
 .inputrc
 .profile
+
+/build
+.exe
+.o
+
+# vs code
 .vscode
+
+# pdf
+.pdf
