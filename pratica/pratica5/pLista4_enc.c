@@ -1,14 +1,12 @@
 /*
-	Versao inicial do programa da lista linear de números
-	implementada por ENCADEAMENTO.
-	Faz a exclusão de elementos da lista. Utiliza subrotina para 
-	impressao.
+	Versao inicial do programa da lista linear de números	implementada por ENCADEAMENTO.
+	Faz a exclusão de elementos da lista. Utiliza subrotina para impressao.
 	Utiliza descritor estruturado e subrotinas.
 */
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TRUE	1
+#define TRUE 1
 #define FALSE	0
 
 typedef struct regLista
@@ -30,19 +28,20 @@ int ExcluiItem(TLista *, int);
 
 int main(void)
 {	
-	int numero;
+	int num;
 	TLista lista;
 
 	InicializaLista(&lista);
+
 	while (TRUE)
 	{	
 		printf("Informe o numero:\n");
-		scanf("%d", &numero);
+		scanf("%d", &num);
 
-		if (numero < 0)
+		if (num < 0)
 			break;
 
-		if (IncluiItem(&lista, numero) == FALSE)
+		if (IncluiItem(&lista, num) == FALSE)
 		{	
 			puts("Memoria insuficiente para esta operacao");
 			return 2;
@@ -54,13 +53,13 @@ int main(void)
 	while (TRUE)
 	{	
 		printf("Informe o valor a excluir: ");
-		scanf("%d", &numero);
+		scanf("%d", &num);
 	
-		if (numero < 0)
+		if (num < 0)
 			break;
 		
-		if (ExcluiItem(&lista, numero) == FALSE)
-			puts("Valor nao encontrado");
+		if (ExcluiItem(&lista, num) == FALSE)
+			puts("\nValor nao encontrado\n\n");
 		else
 			ImprimeLista(&lista, "Novo conteudo da lista:");
 	}
@@ -68,16 +67,20 @@ int main(void)
 	return 0;
 }
 
-void ImprimeLista(TLista *lista, char * cabec)
+void ImprimeLista(TLista *lista, char *cabec)
 {	
 	/* imprimindo os valores da lista */
 	TItem *aux;
 	
 	if (lista->inicio == NULL)
-		puts("Lista vazia");
+	{
+		puts("\nLista vazia");
+		exit(1);
+	}
 	else
 	{	
 		printf("\n\n\n%s\n", cabec);
+
 		aux = lista->inicio;
 		while (aux != NULL)
 		{	
@@ -104,9 +107,10 @@ int IncluiItem(TLista *lista, int valor)
 
 	/* criando uma variável struct regLista dinamicamente */
 	aux = (TItem *) malloc(sizeof(TItem));
+
 	if (aux == NULL)
 		return FALSE;
-		
+	
 	/* preenchendo os campos da variável criada dinamicamente */
 	aux->valor = valor;
 	aux->prox = NULL;
@@ -118,8 +122,8 @@ int IncluiItem(TLista *lista, int valor)
 		lista->final->prox = aux;
 
 	/* atualizando os demais descritores da lista */
-	lista->qtde = lista->qtde + 1;
-	lista->soma = lista->soma + aux->valor;
+	lista->qtde++;
+	lista->soma += aux->valor;
 	lista->final = aux;
 
 	return TRUE;
@@ -132,6 +136,7 @@ int ExcluiItem(TLista *lista, int valor)
 	/* Procurando o item a ser excluido */
 	ant = NULL;
 	aux = lista->inicio;
+
 	while (aux != NULL && valor != aux->valor)
 	{	
 		ant = aux;
@@ -149,8 +154,9 @@ int ExcluiItem(TLista *lista, int valor)
 			ant->prox = aux->prox;
 		
 		/* Atualizando os demais descritores da lista */
-		lista->qtde = lista->qtde - 1;
-		lista->soma = lista->soma - aux->valor;
+		lista->qtde--;
+		lista->soma -= aux->valor;
+
 		if (aux == lista->final)
 			lista->final = ant;
 			
