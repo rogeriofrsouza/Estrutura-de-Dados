@@ -4,10 +4,10 @@ tomate
 viola
 banana
 *
-cidade 
-laranja 
-banana 
-goiaba 
-carro 
+cidade
+laranja
+banana
+goiaba
+carro
 cachorro
 *

@@ -14,15 +14,21 @@ typedef struct no
 typedef struct lista
 {
   No *inicio, *final;
-  int qtde;
 } Lista;
+
+enum operacoes
+{
+  uniao, intersec, dif1, dif2
+};
+
+void OperarConjuntos(Lista *, char *, int op);
 
 int main()
 {
   Lista conj[2];
-  No *aux, *p;
+  No *aux;
 
-  int i, cont;
+  int i;
   char str[31];
 
   for (i = 0; i < 2; i++)
@@ -30,7 +36,6 @@ int main()
     /* inicializando a lista */
     conj[i].inicio = NULL;
     conj[i].final = NULL;
-    conj[i].qtde = 0;
     
     printf("\nConjunto %d:\n", i+1);
 
@@ -45,9 +50,9 @@ int main()
       aux = (No *) malloc(sizeof(No));
 
       /* inicializando os campos do nó */
+      strcpy(aux->info, str);
       aux->ant = NULL;
       aux->prox = NULL;
-      strcpy(aux->info, str);
       
       /* cuidando do encadeamento */
       if (conj[i].inicio == NULL)
@@ -58,9 +63,8 @@ int main()
         aux->ant = conj[i].final;
       }
       
-      /* atualizando descritores */
+      /* atualizando descritor */
       conj[i].final = aux;
-      conj[i].qtde++;
     }
 
     /* checando se conjunto vazio */
@@ -81,70 +85,82 @@ int main()
   }
 
   /* união dos conjuntos */
-  printf("\nUnião dos Conjuntos:\n");
-  printf("{ ");
-
-  conj[0].final->prox = conj[1].inicio;
-
-  for (aux = conj[0].inicio; aux != NULL; aux = aux->prox)
-    printf("%s ", aux->info);
-  
-  printf("}\n");
-  conj[0].final->prox = NULL;
+  OperarConjuntos(conj, "União dos Conjuntos:", uniao);
 
   /* intersecção dos conjuntos */
-  printf("\nIntersecção dos Conjuntos:\n");
-  printf("{ ");
-
-  for (aux = conj[0].inicio; aux != NULL; aux = aux->prox)
-  {
-    cont = 0;
-
-    for (p = conj[1].inicio; p != NULL; p = p->prox)
-    {
-      if (strcmp(aux->info, p->info) == 0)
-        cont++;
-    }
-    if (cont)
-      printf("%s ", aux->info);
-  }
-  printf("}\n");
+  OperarConjuntos(conj, "Intersecção dos Conjuntos:", intersec);
 
   /* diferença Conjunto1 – Conjunto2: */
-  printf("\nDiferença Conjunto 1 - Conjunto 2:\n");
-  printf("{ ");
-
-  for (aux = conj[0].inicio; aux != NULL; aux = aux->prox)
-  {
-    cont = 0;
-
-    for (p = conj[1].inicio; p != NULL; p = p->prox)
-    {
-      if (strcmp(aux->info, p->info) == 0)
-        cont++;
-    }
-    if (cont == 0)
-      printf("%s ", aux->info);
-  }
-  printf("}\n");
+  OperarConjuntos(conj, "Diferença Conjunto 1 - Conjunto 2:", dif1);
 
   /* diferença Conjunto2 – Conjunto1: */
-  printf("\nDiferença Conjunto 2 - Conjunto 1:\n");
-  printf("{ ");
-
-  for (aux = conj[1].inicio; aux != NULL; aux = aux->prox)
-  {
-    cont = 0;
-
-    for (p = conj[0].inicio; p != NULL; p = p->prox)
-    {
-      if (strcmp(aux->info, p->info) == 0)
-        cont++;
-    }
-    if (cont == 0)
-      printf("%s ", aux->info);
-  }
-  printf("}\n");
+  OperarConjuntos(conj, "Diferença Conjunto 2 - Conjunto 1:", dif2);
 
   return 0;
+}
+
+void OperarConjuntos(Lista *conj, char *cabec, int op)
+{
+  No *aux, *p;
+  int cont;
+
+  printf("\n%s\n", cabec);
+  printf("{ ");
+
+  switch (op)
+  {
+    /* união */
+    case 0:
+      conj[0].final->prox = conj[1].inicio;
+
+      for (aux = conj[0].inicio; aux != NULL; aux = aux->prox)
+        printf("%s ", aux->info);
+
+      conj[0].final->prox = NULL;
+      break;
+    
+    /* intersecção */
+    case 1:
+      for (aux = conj[0].inicio; aux != NULL; aux = aux->prox)
+      {
+        cont = 0;
+
+        for (p = conj[1].inicio; p != NULL; p = p->prox)
+          strcmp(aux->info, p->info) == 0 ? cont++ : 0;
+
+        if (cont)
+          printf("%s ", aux->info);
+      }
+      break;
+
+    /* diferença conj 1 - conj 2 */
+    case 2:
+      for (aux = conj[0].inicio; aux != NULL; aux = aux->prox)
+      {
+        cont = 0;
+
+        for (p = conj[1].inicio; p != NULL; p = p->prox)
+          strcmp(aux->info, p->info) == 0 ? cont++ : 0;
+        
+        if (cont == 0)
+          printf("%s ", aux->info);
+      }
+      break;
+    
+    /* diferença conj 2 - conj 1 */
+    case 3:
+      for (aux = conj[1].inicio; aux != NULL; aux = aux->prox)
+      {
+        cont = 0;
+
+        for (p = conj[0].inicio; p != NULL; p = p->prox)
+          strcmp(aux->info, p->info) == 0 ? cont++ : 0;
+
+        if (cont == 0)
+          printf("%s ", aux->info);
+      }
+      break;
+  }
+
+  printf("}\n");
 }
