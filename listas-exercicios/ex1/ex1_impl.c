@@ -1,6 +1,6 @@
 /*
 	Arquivo fonte da IMPLEMENTACAO do TDA de lista linear por ENCADEAMENTO,
-	com as definicoes de tipo de dados e subrotinas.
+	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,25 +55,22 @@ void ImprimeLista(Lista *lista, char *cabec)
   printf("\n\n%s [início]\n", cabec);
 
   for (aux = lista->inicio; aux != NULL; aux = aux->prox)
-  {
-    printf("\nCidade: %s", aux->info->nome);
-    printf("\nPopulação: %d", aux->info->pop);
-    printf("\nÁrea: %.2f", aux->info->area);
-    printf("\nPIB: %.2f", aux->info->pib);
-    printf("\nIDH: %.2f\n", aux->info->idh);
-  }
+    ImprimeCidade(aux);
 
   /* imprimindo do final */
   printf("\n\n%s [final]\n", cabec);
 
   for (aux = lista->final; aux != NULL; aux = aux->ant)
-  {
-    printf("\nCidade: %s", aux->info->nome);
-    printf("\nPopulação: %d", aux->info->pop);
-    printf("\nÁrea: %.2f", aux->info->area);
-    printf("\nPIB: %.2f", aux->info->pib);
-    printf("\nIDH: %.2f\n", aux->info->idh);
-  }
+    ImprimeCidade(aux);
+}
+
+void ImprimeCidade(No *aux)
+{
+  printf("\nCidade: %s", aux->info->nome);
+  printf("\nPopulação: %d", aux->info->pop);
+  printf("\nÁrea: %.2f", aux->info->area);
+  printf("\nPIB: %.2f", aux->info->pib);
+  printf("\nIDH: %.2f\n", aux->info->idh);
 }
 
 int ExcluiItem(Lista *lista, float num)

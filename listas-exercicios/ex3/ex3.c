@@ -15,12 +15,13 @@ typedef struct lista
   No *inicio, *final;
 } Lista;
 
+void IncluiItem(Lista *, int);
 void ImprimeListas(Lista *, char *);
+void ExcluiItem(Lista *);
 
 int main()
 {
   Lista lista[2];
-  No *aux, *p;
 
   int i, num;
 
@@ -39,25 +40,7 @@ int main()
       if (num == -999)
         break;
       
-      /* alocando um nó da lista dinamicamente */
-      aux = (No *) malloc(sizeof(No));
-
-      /* inicializando os campos do nó */
-      aux->ant = NULL;
-      aux->info = num;
-      aux->prox = NULL;
-
-      /* cuidando do encadeamento */
-      if (lista[i].inicio == NULL)
-        lista[i].inicio = aux;
-      else
-      {
-        lista[i].final->prox = aux;
-        aux->ant = lista[i].final;
-      }
-
-      /* atualizando descritor */
-      lista[i].final = aux;
+      IncluiItem(&lista[i], num); 
     }
   }
 
@@ -65,30 +48,7 @@ int main()
   ImprimeListas(lista, "Situação inicial:");
   
   /* excluindo elementos */
-  for (aux = lista[0].inicio; aux != NULL; aux = aux->prox)
-  {
-    p = lista[1].inicio;
-
-    while ((p != NULL) && (p->info != aux->info))
-      p = p->prox;
-
-    if (p == NULL)
-      continue;
-        
-    /* cuidando do encadeamento */
-    if (p == lista[1].inicio)
-      lista[1].inicio = p->prox;
-    else
-      p->ant->prox = p->prox;
-
-    if (p->prox != NULL)
-      p->prox->ant = p->ant;
-    else
-      lista[1].final = p->ant;
-    
-    /* removendo nó da lista */
-    free(p);
-  }
+  ExcluiItem(lista);
 
   /* imprimindo listas */
   ImprimeListas(lista, "Situação final:");
@@ -97,7 +57,32 @@ int main()
   return 0;
 }
 
-void ImprimeListas(Lista lista[], char *cabec)
+void IncluiItem(Lista *lista, int num)
+{
+  No *aux;
+
+  /* alocando um nó da lista dinamicamente */
+  aux = (No *) malloc(sizeof(No));
+
+  /* inicializando os campos do nó */
+  aux->info = num;
+  aux->ant = NULL;
+  aux->prox = NULL;
+
+  /* cuidando do encadeamento */
+  if (lista->inicio == NULL)
+    lista->inicio = aux;
+  else
+  {
+    lista->final->prox = aux;
+    aux->ant = lista->final;
+  }
+
+  /* atualizando descritor */
+  lista->final = aux;
+}
+
+void ImprimeListas(Lista *lista, char *cabec)
 {
   No *aux;
   int i;
@@ -116,5 +101,38 @@ void ImprimeListas(Lista lista[], char *cabec)
 
     for (aux = lista[i].inicio; aux != NULL; aux = aux->prox)
       printf(" %d", aux->info);
+  }
+}
+
+void ExcluiItem(Lista *lista)
+{
+  No *aux, *p;
+
+  for (aux = lista[0].inicio; aux != NULL; aux = aux->prox)
+  {
+    while (1)
+    {
+      p = lista[1].inicio;
+      
+      while ((p != NULL) && (p->info != aux->info))
+        p = p->prox;
+
+      if (p == NULL)
+        break;
+          
+      /* cuidando do encadeamento */
+      if (p == lista[1].inicio)
+        lista[1].inicio = p->prox;
+      else
+        p->ant->prox = p->prox;
+
+      if (p->prox != NULL)
+        p->prox->ant = p->ant;
+      else
+        lista[1].final = p->ant;
+      
+      /* removendo nó da lista */
+      free(p);
+    }
   }
 }

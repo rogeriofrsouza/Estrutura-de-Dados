@@ -1,6 +1,6 @@
 /*
 	Arquivo fonte da IMPLEMENTACAO do TDA de lista linear por CONTIGUIDADE,
-	com as definicoes de tipo de dados e subrotinas.
+	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>
 #include <string.h>
@@ -36,25 +36,22 @@ void ImprimeLista(Lista *lista, char *cabec)
   printf("\n\n%s [início]\n", cabec);
 
   for (i = lista->inicio; i < lista->final; i++)
-  {
-    printf("\nCidade: %s", lista->vet[i].nome);
-    printf("\nPopulação: %d", lista->vet[i].pop);
-    printf("\nÁrea: %.2f", lista->vet[i].area);
-    printf("\nPIB: %.2f", lista->vet[i].pib);
-    printf("\nIDH: %.2f\n", lista->vet[i].idh);
-  }
+    ImprimeCidade(lista->vet[i]);
 
   /* imprimindo do final */
   printf("\n\n%s [final]\n", cabec);
 
   for (i = lista->final-1; i >= lista->inicio; i--)
-  {
-    printf("\nCidade: %s", lista->vet[i].nome);
-    printf("\nPopulação: %d", lista->vet[i].pop);
-    printf("\nÁrea: %.2f", lista->vet[i].area);
-    printf("\nPIB: %.2f", lista->vet[i].pib);
-    printf("\nIDH: %.2f\n", lista->vet[i].idh);
-  }
+    ImprimeCidade(lista->vet[i]);
+}
+
+void ImprimeCidade(Cidade cidade)
+{
+  printf("\nCidade: %s", cidade.nome);
+  printf("\nPopulação: %d", cidade.pop);
+  printf("\nÁrea: %.2f", cidade.area);
+  printf("\nPIB: %.2f", cidade.pib);
+  printf("\nIDH: %.2f\n", cidade.idh);
 }
 
 int ExcluiItem(Lista *lista, float num)

@@ -20,4 +20,5 @@ typedef struct lista
 void InicializaLista(Lista *);
 void IncluiItem(Lista *, Cidade);
 void ImprimeLista(Lista *, char *);
+void ImprimeCidade(Cidade cidade);
 int ExcluiItem(Lista *, float);

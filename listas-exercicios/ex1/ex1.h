@@ -23,4 +23,5 @@ typedef struct lista
 void InicializaLista(Lista *);
 void IncluiItem(Lista *, Cidade);
 void ImprimeLista(Lista *, char *);
+void ImprimeCidade(No *aux);
 int ExcluiItem(Lista *, float);

@@ -66,11 +66,8 @@ int main()
       ImprimeLista(&lista, "Novo conteúdo da lista:");
     }
     else
-    {
       /* não encontrou */
       printf("\nNão foi encontrada cidade");
-      continue;
-    }
   }
 
   return 0;
