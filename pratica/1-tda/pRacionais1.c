@@ -4,10 +4,11 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
 
-typedef struct {int num, den;} TRac;
+typedef struct numRac
+{
+	int num, den;
+} TRac;
 
 /* Protótipos das funções */
 TRac SomaRac(TRac, TRac);

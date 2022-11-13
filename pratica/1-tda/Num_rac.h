@@ -1,7 +1,10 @@
 /*
-	Arquivo de INTERFACE para a implementação do TDA de Números Racionais
+	Arquivo de INTERFACE para a implementação do TDA de números racionais
 */
-typedef struct {int num, den;} TRac;
+typedef struct numRac
+{
+	int num, den;
+} TRac;
 
 /* Protótipos das funções */
 TRac SomaRac(TRac, TRac);

@@ -3,8 +3,6 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include "Num_rac.h"
 
 int main(void)

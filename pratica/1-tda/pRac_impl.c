@@ -1,11 +1,9 @@
 /*
-	Arquivo fonte da IMPLEMENTACAO do TDA de Números Racionais,
+	Arquivo fonte da IMPLEMENTACAO do TDA de números racionais,
 	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include "Num_rac.h"
 
 int mdc(int, int);
