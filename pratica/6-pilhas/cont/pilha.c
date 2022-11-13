@@ -4,21 +4,20 @@
   Para testá-lo, adapte-o para imprimir o conteúdo da pilha antes e após a exclusão.
 */
 #include <stdio.h>
-#include <stdlib.h>
 
 #define MAX 50
 
-struct pilha 
+struct regPilha 
 {
   int topo, qtde;
   int vet[MAX];
 };
-typedef struct pilha Pilha;
+typedef struct regPilha TPilha;
 
 int main(void)
 {
-  Pilha pilha;
-  int num, i, aux;
+  TPilha pilha;
+  int num, i;
 
   /* inicializando a pilha */
   pilha.topo = 0;
@@ -26,7 +25,7 @@ int main(void)
 
   for (i = 0; i < MAX; i++)
   {
-    printf("Informe o número:\n");
+    printf("\nInforme o número: ");
     scanf("%d", &num);
 
     if (num < 0)
@@ -52,12 +51,10 @@ int main(void)
     scanf("%d", &num);
 
     if (num != 1)
-      exit(1);
-    
-    aux = pilha.vet[pilha.topo];
+      return 1;
     
     /* excluindo um valor da pilha */
-    printf("\nExcluindo o valor %d da pilha\n", aux);
+    printf("\nExcluindo o valor %d da pilha\n", pilha.vet[pilha.topo]);
     pilha.topo--;
     pilha.qtde--;
   }

@@ -1,85 +1,80 @@
 /* 
   O programa apresentado a seguir implementa uma pilha básica de números inteiros em linguagem C. 
+  Implementada por ENCADEAMENTO. 
   Para testá-lo, adapte-o para imprimir o conteúdo da pilha antes e após a exclusão.
 */
 #include <stdio.h>
 #include <stdlib.h>
 
-struct regLista 
+struct regItem 
 {
   int valor;
-  struct regLista *prox;
+  struct regItem *prox;
 };
-typedef struct regLista TLista;
+typedef struct regItem TItem;
 
-struct descrPilha 
+struct regPilha 
 {
-  TLista *topo;
+  TItem *topo;
   int qtde;
 };
-typedef struct descrPilha DPilha;
+typedef struct regPilha TPilha;
 
 int main(void)
 {
-  TLista *aux;
-  DPilha descr;
+  TItem *aux;
+  TPilha pilha;
   int num;
 
-  /* inicializando o descritor da pilha */
-  descr.topo = NULL;
-  descr.qtde = 0;
+  /* inicializando a pilha */
+  pilha.topo = NULL;
+  pilha.qtde = 0;
   
   while (1)
   {
-    printf("Informe o número:\n");
+    printf("\nInforme o número: ");
     scanf("%d", &num);
     
     if (num < 0)
       break;
     
-    /* alocando a struct TLista dinamicamente */
-    aux = (TLista *) malloc(sizeof(TLista));
+    /* criando uma variável TItem dinamicamente */
+    aux = (TItem *) malloc(sizeof(TItem));
 
-    /* preenchendo os valores da struct alocada */
+    /* preenchendo os valores da variável alocada */
     aux->valor = num;
-    aux->prox = descr.topo;
+    aux->prox = pilha.topo;
 
-    /* atualizando os descritores */
-    descr.topo = aux;
-    descr.qtde++;
+    /* atualizando os descritores*/
+    pilha.topo = aux;
+    pilha.qtde++;
   }
 
-  while (1)
+  while (pilha.topo != NULL)
   {
-    /* imprime pilha */
+    /* imprimindo os valores da pilha */
     printf("\n\nConteúdo da pilha:\n");
 
-    for (aux = descr.topo; aux != NULL; aux = aux->prox)
+    for (aux = pilha.topo; aux != NULL; aux = aux->prox)
       printf("%d\n", aux->valor);
 
     printf("\nDigite 1 para excluir ou outra coisa para encerrar:\n");
     scanf("%d", &num);
 
     if (num != 1)
-      break;
+      return 1;
     
-    /* verifica se a pilha está vazia */
-    if (descr.topo != NULL)
-    {
-      aux = descr.topo;
-      descr.topo = descr.topo->prox;
-      descr.qtde--;
-      
-      /* excluindo um valor da pilha */
-      printf("\nExcluindo o valor %d da pilha\n", aux->valor);
-      free(aux);
-    }
-    else
-    {
-      printf("\nA lista está vazia\n");
-      break;
-    }
+    /* excluindo um valor da pilha */
+    printf("\nExcluindo o valor %d da pilha\n", pilha.topo->valor);
+
+    aux = pilha.topo;
+    pilha.topo = pilha.topo->prox;
+    pilha.qtde--;
+
+    free(aux);
   }
   
+  printf("\nA pilha está vazia\n");
+
   return 0;
 }
