@@ -1,5 +1,5 @@
 /*
-	Arquivo fonte da IMPLEMENTACAO do TDA de números racionais,
+	Arquivo fonte da IMPLEMENTAÇÃO do TDA de números racionais,
 	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>

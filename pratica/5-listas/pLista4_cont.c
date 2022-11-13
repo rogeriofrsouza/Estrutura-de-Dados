@@ -1,6 +1,6 @@
 /*
-	Versao inicial do programa da lista linear de números	implementada por CONTIGUIDADE.
-	Faz a exclusão de elementos da lista.
+	Versão inicial do programa da lista linear de números	implementada por CONTIGUIDADE.
+	Faz a exclusão de elementos da lista. Utiliza subrotina para impressão.
 	Utiliza descritor estruturado e subrotinas.
 */
 #include <stdio.h>
@@ -11,53 +11,56 @@
 #define MAXIMO 50
 
 typedef int TItem;
-typedef struct tLista
+
+typedef struct regLista
 {	
 	int inicio, final, qtde, soma;
-	TItem lista[MAXIMO];
+	TItem vet[MAXIMO];
 } TLista;
 
-void ImprimeLista(TLista *, char *);
 void InicializaLista(TLista *);
 int IncluiItem(TLista *, TItem);
+void ImprimeLista(TLista *, char *);
 int ExcluiItem(TLista *, TItem);
 
 int main(void)
 {	
-	int num;
-	TLista descLista;
+	int numero;
+	TLista lista;
 	
-	InicializaLista(&descLista);
+	/* inicializa o conjunto de descritores da lista */
+	InicializaLista(&lista);
 
 	while (TRUE)
 	{	
-		printf("Informe o numero:\n");
-		scanf("%d", &num);
+		printf("\nInforme o número: ");
+		scanf("%d", &numero);
 
-		if (num < 0)
+		if (numero < 0)
 			break;
 
-		if (IncluiItem(&descLista, num) == FALSE)
+		if (IncluiItem(&lista, numero) == FALSE)
 		{	
-			puts("Memoria insuficiente para esta operacao");
+			puts("\n\nMemória insuficiente para esta operação");
 			return 2;
 		}
 	}
 
-	ImprimeLista(&descLista, "Conteudo da lista:");
+	/* imprime os valores da lista */
+	ImprimeLista(&lista, "Conteúdo da lista:");
 		
 	while (TRUE)
 	{	
-		printf("Informe o valor a excluir: ");
-		scanf("%d", &num);
+		printf("\nInforme o valor a excluir: ");
+		scanf("%d", &numero);
 	
-		if (num < 0)
+		if (numero < 0)
 			break;
 		
-		if (ExcluiItem(&descLista, num) == FALSE)
-			puts("\nValor nao encontrado\n\n");
+		if (ExcluiItem(&lista, numero) == FALSE)
+			puts("\nValor não encontrado\n\n");
 		else
-			ImprimeLista(&descLista, "Novo conteudo da lista:");			
+			ImprimeLista(&lista, "Novo conteúdo da lista:");			
 	}
 	
 	return 0;
@@ -65,74 +68,72 @@ int main(void)
 
 void InicializaLista(TLista *lista)
 {	
-	/* inicializando o conjunto de descritores da lista */
 	lista->inicio = 0;
 	lista->final = 0;
 	lista->qtde = 0;
 	lista->soma = 0;
 }
 
-void ImprimeLista(TLista *descLista, char *cabec)
-{	
-	/* imprimindo os valores da lista */
-	int cont;
-
-	if (descLista->final == 0)
-	{
-		puts("\nLista vazia");
-		exit(1);
-	}
-	else
-	{	
-		printf("\n\n\n%s\n", cabec);
-
-		cont = 0;
-		while (cont != descLista->final)
-		{	
-			printf("%d\n", descLista->lista[cont]);
-			cont++;
-		}
-		
-		printf("Soma = %d   Media = %.2f\n", descLista->soma, descLista->soma / (float)descLista->qtde);
-	}
-}
-
-int IncluiItem(TLista *descLista, TItem valor)
+int IncluiItem(TLista *lista, TItem valor)
 {	
 	/* verificando se a lista está cheia */
-	if (descLista->final == MAXIMO)
+	if (lista->final == MAXIMO)
 		return FALSE;
 	
-	descLista->lista[descLista->final] = valor;
-	descLista->final++;
-	descLista->qtde++;
-	descLista->soma += valor;
+	lista->vet[lista->final] = valor;
+
+	lista->final++;
+	lista->qtde++;
+	lista->soma += valor;
 
 	return TRUE;
 }
 
-int ExcluiItem(TLista *descLista, TItem valor)
+void ImprimeLista(TLista *lista, char *cabec)
 {	
 	int cont;
 
-	/* Procurando o item a ser excluido */
+	if (lista->final == 0)
+	{
+		puts("\nLista vazia");
+		exit(1);
+	}
+
+	printf("\n\n\n%s\n", cabec);
 	cont = 0;
-	while (cont < descLista->final && valor != descLista->lista[cont])
-		cont++;
-	
-	if (cont == descLista->final)
-		return FALSE;
-	
-	/* trazendo os elementos posteriores ao eliminado para o elemento anterior */
-	while (cont < descLista->final)
+
+	while (cont != lista->final)
 	{	
-		descLista->lista[cont] = descLista->lista[cont+1];
+		printf("%d\n", lista->vet[cont]);
 		cont++;
 	}
 	
-	descLista->final--;
-	descLista->qtde--;
-	descLista->soma -= valor;
+	printf("\nSoma = %d   Média = %.2f\n", lista->soma, lista->soma / (float)lista->qtde);
+}
+
+int ExcluiItem(TLista *lista, TItem valor)
+{	
+	int cont;
+
+	/* procurando o item a ser excluído */
+	cont = 0;
+
+	while (cont < lista->final && valor != lista->vet[cont])
+		cont++;
+	
+	if (cont == lista->final)
+		return FALSE;
+	
+	/* trazendo os elementos posteriores ao eliminado para o elemento anterior */
+	while (cont < lista->final)
+	{	
+		lista->vet[cont] = lista->vet[cont + 1];
+		cont++;
+	}
+	
+	lista->final--;
+	lista->qtde--;
+	lista->soma -= valor;
 	
 	return TRUE;
 }

@@ -1,23 +1,23 @@
 /*
   Arquivo de INTERFACE para a implementação TDA de listas lineares por ENCADEAMENTO
 */
-#define TRUE	1
+#define TRUE 1
 #define FALSE	0
 
-typedef struct regLista
+typedef struct regItem
 {	
   int valor;
-	struct regLista *prox;
+	struct regItem *prox;
 } TItem;
 
-typedef struct descLista
+typedef struct regLista
 {	
   TItem *inicio, *final;
 	int qtde, soma;
 } TLista;
 
-/* Protótipos das funções */
-void ImprimeLista(TLista *, char *);
+/* protótipos das funções */
 void InicializaLista(TLista *);
 int IncluiItem(TLista *, int);
+void ImprimeLista(TLista *, char *);
 int ExcluiItem(TLista *, int);

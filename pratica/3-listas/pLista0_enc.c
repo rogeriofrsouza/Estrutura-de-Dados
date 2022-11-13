@@ -1,12 +1,12 @@
 /*
-	Versao inicial do programa da lista linear de números
-	implementada por ENCADEAMENTO.
+	Versão inicial do programa da lista linear de números	implementada por ENCADEAMENTO.
 	É a mesma versão encontrada no arquivo 63_ED-ListasLineares.pdf
 */
 #include <stdio.h>
 #include <stdlib.h>
 
-struct regLista {
+struct regLista 
+{
 	int valor; 
 	struct regLista *prox;
 };
@@ -16,11 +16,12 @@ int main(void)
 	int numero;
 	struct regLista *inicio, *aux, *ant;
 
-	/* inicializando a variável inicio com um endereco vazio */
+	/* inicializando a variável inicio com um endereço vazio */
 	inicio = NULL;
+
 	while (1)
 	{	
-		printf("Informe o numero:\n");
+		printf("\nInforme o número: ");
 		scanf("%d", &numero);
 
 		if (numero < 0)
@@ -29,7 +30,7 @@ int main(void)
 		/* criando uma variável struct regLista dinamicamente */
 		aux = (struct regLista *) malloc(sizeof(struct regLista));
 
-		/* preenchendo os campos da variável criada dinamicamente */
+		/* preenchendo os campos da variável alocada */
 		aux->valor = numero;
 		aux->prox = NULL;
 
@@ -43,8 +44,9 @@ int main(void)
 	}
 
 	/* imprimindo os valores da lista */
-	printf("\n\n\nConteudo da lista:\n");
+	printf("\n\n\nConteúdo da lista:\n");
 	aux = inicio;
+
 	while (aux != NULL)
 	{	
 		printf("%d\n", aux->valor);

@@ -1,6 +1,6 @@
 /*
-	Versao inicial do programa da lista linear de números	implementada por ENCADEAMENTO.
-	Faz a exclusão de elementos da lista. Utiliza subrotina para impressao.
+	Versão inicial do programa da lista linear de números	implementada por ENCADEAMENTO.
+	Faz a exclusão de elementos da lista. Utiliza subrotina para impressão.
 	Utiliza descritor estruturado e subrotinas.
 */
 #include <stdio.h>
@@ -9,92 +9,68 @@
 #define TRUE 1
 #define FALSE	0
 
-typedef struct regLista
+typedef struct regItem
 {	
 	int valor;
-	struct regLista *prox;
+	struct regItem *prox;
 } TItem;
 
-typedef struct
+typedef struct regLista
 {	
 	TItem *inicio, *final;
 	int qtde, soma;
 } TLista;
 
-void ImprimeLista(TLista *, char *);
 void InicializaLista(TLista *);
 int IncluiItem(TLista *, int);
+void ImprimeLista(TLista *, char *);
 int ExcluiItem(TLista *, int);
 
 int main(void)
 {	
-	int num;
+	int numero;
 	TLista lista;
 
+	/* inicializa o conjunto de descritores da lista */
 	InicializaLista(&lista);
 
 	while (TRUE)
 	{	
-		printf("Informe o numero:\n");
-		scanf("%d", &num);
+		printf("\nInforme o número: ");
+		scanf("%d", &numero);
 
-		if (num < 0)
+		if (numero < 0)
 			break;
 
-		if (IncluiItem(&lista, num) == FALSE)
+		if (IncluiItem(&lista, numero) == FALSE)
 		{	
-			puts("Memoria insuficiente para esta operacao");
+			puts("\n\nMemória insuficiente para esta operação");
 			return 2;
 		}
 	}
 
-	ImprimeLista(&lista, "Conteudo da lista:");
+	/* imprime os valores da lista */
+	ImprimeLista(&lista, "Conteúdo da lista:");
 		
 	while (TRUE)
 	{	
-		printf("Informe o valor a excluir: ");
-		scanf("%d", &num);
+		printf("\nInforme o valor a excluir: ");
+		scanf("%d", &numero);
 	
-		if (num < 0)
+		if (numero < 0)
 			break;
 		
-		if (ExcluiItem(&lista, num) == FALSE)
-			puts("\nValor nao encontrado\n\n");
+		if (ExcluiItem(&lista, numero) == FALSE)
+			puts("\nValor não encontrado\n\n");
 		else
-			ImprimeLista(&lista, "Novo conteudo da lista:");
+			ImprimeLista(&lista, "Novo conteúdo da lista:");
 	}
 	
 	return 0;
 }
 
-void ImprimeLista(TLista *lista, char *cabec)
-{	
-	/* imprimindo os valores da lista */
-	TItem *aux;
-	
-	if (lista->inicio == NULL)
-	{
-		puts("\nLista vazia");
-		exit(1);
-	}
-	else
-	{	
-		printf("\n\n\n%s\n", cabec);
-
-		aux = lista->inicio;
-		while (aux != NULL)
-		{	
-			printf("%d\n", aux->valor);
-			aux = aux->prox;
-		}
-		
-		printf("Soma = %d   Media = %.2f\n", lista->soma, lista->soma / (float)lista->qtde);
-	}
-}
-
 void InicializaLista(TLista *lista)
 {	
-	/* inicializa o conjunto de descritores da lista */
 	lista->inicio = NULL;
 	lista->final = NULL;
 	lista->qtde = 0;
@@ -105,13 +81,13 @@ int IncluiItem(TLista *lista, int valor)
 {	
 	TItem *aux;
 
-	/* criando uma variável struct regLista dinamicamente */
+	/* criando uma variável TItem dinamicamente */
 	aux = (TItem *) malloc(sizeof(TItem));
 
 	if (aux == NULL)
 		return FALSE;
 	
-	/* preenchendo os campos da variável criada dinamicamente */
+	/* preenchendo os campos da variável alocada */
 	aux->valor = valor;
 	aux->prox = NULL;
 
@@ -122,18 +98,40 @@ int IncluiItem(TLista *lista, int valor)
 		lista->final->prox = aux;
 
 	/* atualizando os demais descritores da lista */
+	lista->final = aux;
 	lista->qtde++;
 	lista->soma += aux->valor;
-	lista->final = aux;
 
 	return TRUE;
+}
+
+void ImprimeLista(TLista *lista, char *cabec)
+{	
+	TItem *aux;
+	
+	if (lista->inicio == NULL)
+	{
+		puts("\nLista vazia");
+		exit(1);
+	}
+
+	printf("\n\n\n%s\n", cabec);
+	aux = lista->inicio;
+
+	while (aux != NULL)
+	{	
+		printf("%d\n", aux->valor);
+		aux = aux->prox;
+	}
+	
+	printf("\nSoma = %d   Média = %.2f\n", lista->soma, lista->soma / (float)lista->qtde);
 }
 
 int ExcluiItem(TLista *lista, int valor)
 {	
 	TItem *aux, *ant;
 
-	/* Procurando o item a ser excluido */
+	/* procurando o item a ser excluído */
 	ant = NULL;
 	aux = lista->inicio;
 
@@ -145,24 +143,22 @@ int ExcluiItem(TLista *lista, int valor)
 		
 	if (aux == NULL)
 		return FALSE;
-	else
-	{	
-		/* Cuidando do encadeamento */
-		if (ant == NULL)
-			lista->inicio = aux->prox;
-		else
-			ant->prox = aux->prox;
-		
-		/* Atualizando os demais descritores da lista */
-		lista->qtde--;
-		lista->soma -= aux->valor;
 
-		if (aux == lista->final)
-			lista->final = ant;
-			
-		/* Removendo o item da lista */
-		free(aux);
-	}
+	/* cuidando do encadeamento */
+	if (ant == NULL)
+		lista->inicio = aux->prox;
+	else
+		ant->prox = aux->prox;
+	
+	/* atualizando os demais descritores da lista */
+	if (aux == lista->final)
+		lista->final = ant;
+
+	lista->qtde--;
+	lista->soma -= aux->valor;
+	
+	/* removendo o item da lista */
+	free(aux);
 	
 	return TRUE;
 }

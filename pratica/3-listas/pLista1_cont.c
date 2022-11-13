@@ -1,9 +1,7 @@
 /*
-	Versao inicial do programa da lista linear de números
-	implementada por CONTIGUIDADE.
+	Versão inicial do programa da lista linear de números	implementada por CONTIGUIDADE.
 */
 #include <stdio.h>
-#include <stdlib.h>
 
 #define MAXIMO 50
 
@@ -19,7 +17,7 @@ int main(void)
 	
 	while (1)
 	{	
-		printf("Informe o numero:\n");
+		printf("\nInforme o número: ");
 		scanf("%d", &numero);
 
 		if (numero < 0)
@@ -31,42 +29,44 @@ int main(void)
 
 	/* imprimindo os valores da lista */
 	if (final == 0)
-		puts("Lista vazia");
+		puts("\n\nLista vazia");
 	else
 	{	
 		soma = 0;
 		qtde = 0;
-		printf("\n\n\nConteudo da lista:\n");
+		printf("\n\n\nConteúdo da lista:\n");
+
 		cont = 0;
 
 		while (cont != final)
 		{	
 			printf("%d\n", lista[cont]);
+
 			soma = soma + lista[cont];
 			qtde = qtde + 1;
-			
 			cont = cont + 1;
 		}
 		
-		printf("Soma = %d   Media = %.2f\n", soma, soma / (float)qtde);
+		printf("\nSoma = %d   Média = %.2f\n", soma, soma / (float)qtde);
 	}
 	
 	while (1)
 	{	
-		printf("Informe o valor a pesquisar: ");
+		printf("\nInforme o valor a pesquisar: ");
 		scanf("%d", &numero);
 	
 		if (numero < 0)
 			break;
 		
 		cont = 0;
+
 		while (cont < final && numero != lista[cont])
 			cont = cont + 1;
 	
 		if (cont == final)
-			puts("Valor nao encontrado");
+			puts("\nValor não encontrado");
 		else
-			puts("Valor existe na lista");
+			puts("\nValor existe na lista");
 	}
 	
 	return 0;

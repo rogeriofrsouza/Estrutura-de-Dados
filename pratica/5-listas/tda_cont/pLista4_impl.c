@@ -1,6 +1,6 @@
 /*
-	Arquivo fonte da IMPLEMENTACAO do TDA de listas lineares por CONTIGUIDADE,
-	com as definicoes de tipo de dados e subrotinas.
+	Arquivo fonte da IMPLEMENTAÇÃO do TDA de listas lineares por CONTIGUIDADE,
+	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,34 +14,13 @@ void InicializaLista(TLista *lista)
 	lista->soma = 0;
 }
 
-void ImprimeLista(TLista *lista, char *cabec)
-{	
-	/* imprimindo os valores da lista */
-	int cont;
-
-	if (lista->final == 0)
-		puts("Lista vazia");
-	else
-	{	
-		printf("\n\n\n%s\n", cabec);
-		cont = 0;
-		while (cont != lista->final)
-		{	
-			printf("%d\n", lista->lista[cont]);
-			
-			cont = cont + 1;
-		}
-		
-		printf("Soma = %d   Media = %.2f\n", lista->soma, lista->soma / (float)lista->qtde);
-	}
-}
-
 int IncluiItem(TLista *lista, int valor)
 {	
 	if (lista->final == MAXIMO)
 		return FALSE;
 	
-	lista->lista[lista->final] = valor;
+	lista->vet[lista->final] = valor;
+
 	lista->final = lista->final + 1;
 	lista->qtde = lista->qtde + 1;
 	lista->soma = lista->soma + valor;
@@ -49,31 +28,50 @@ int IncluiItem(TLista *lista, int valor)
 	return TRUE;
 }
 
+void ImprimeLista(TLista *lista, char *cabec)
+{	
+	int cont;
+
+	if (lista->final == 0)
+		puts("\n\nLista vazia");
+	else
+	{	
+		printf("\n\n\n%s\n", cabec);
+		cont = 0;
+
+		while (cont != lista->final)
+		{	
+			printf("%d\n", lista->vet[cont]);
+			cont = cont + 1;
+		}
+		
+		printf("\nSoma = %d   Média = %.2f\n", lista->soma, lista->soma / (float)lista->qtde);
+	}
+}
+
 int ExcluiItem(TLista *lista, int valor)
 {	
 	int cont;
 
-	/* Procurando o item a ser excluido */
+	/* procurando o item a ser excluído */
 	cont = 0;
-	while (cont < lista->final && valor != lista->lista[cont])
+
+	while (cont < lista->final && valor != lista->vet[cont])
 		cont = cont + 1;
 	
 	if (cont == lista->final)
 		return FALSE;
-	else
+
+	/* trazendo os elementos posteriores ao eliminado para o elemento anterior */
+	while (cont < lista->final)
 	{	
-		/* trazendo os elementos posteriores ao eliminado
-			para o elemento anterior */
-		while (cont < lista->final)
-		{	
-			lista->lista[cont] = lista->lista[cont + 1];
-			cont = cont + 1;
-		}
-			
-		lista->final = lista->final - 1;
-		lista->qtde = lista->qtde - 1;
-		lista->soma = lista->soma - valor;
+		lista->vet[cont] = lista->vet[cont + 1];
+		cont = cont + 1;
 	}
+		
+	lista->final = lista->final - 1;
+	lista->qtde = lista->qtde - 1;
+	lista->soma = lista->soma - valor;
 		
 	return TRUE;
 }

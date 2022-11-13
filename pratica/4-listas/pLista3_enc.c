@@ -1,13 +1,12 @@
 /*
-	Versao inicial do programa da lista linear de números
-	implementada por ENCADEAMENTO.
-	Faz a exclusão de elementos da lista. Utiliza subrotina para 
-	impressao.
+	Versão inicial do programa da lista linear de números	implementada por ENCADEAMENTO.
+	Faz a exclusão de elementos da lista. Utiliza subrotina para impressão.
 */
 #include <stdio.h>
 #include <stdlib.h>
 
-struct regLista {
+struct regLista 
+{
 	int valor;
 	struct regLista *prox;
 };
@@ -20,25 +19,27 @@ int main(void)
 	int numero;
 	TItem *inicio, *aux, *ant;
 
-	/* inicializando a variável inicio com um endereco vazio */
+	/* inicializando a variável inicio com um endereço vazio */
 	inicio = NULL;
+
 	while (1)
 	{	
-		printf("Informe o numero:\n");
+		printf("\nInforme o número: ");
 		scanf("%d", &numero);
 
 		if (numero < 0)
 			break;
 
-		/* criando uma variável struct regLista dinamicamente */
+		/* criando uma variável TItem dinamicamente */
 		aux = (TItem *) malloc(sizeof(TItem));
+
 		if (aux == NULL)
 		{	
-			puts("Memoria insuficiente para esta operacao");
+			puts("\n\nMemória insuficiente para esta operação");
 			return 2;
 		}
 		
-		/* preenchendo os campos da variável criada dinamicamente */
+		/* preenchendo os campos da variável alocada */
 		aux->valor = numero;
 		aux->prox = NULL;
 
@@ -51,19 +52,21 @@ int main(void)
 		ant = aux;
 	}
 
-	ImprimeLista(inicio, "Conteudo da lista:");
+	/* imprimindo os valores da lista */
+	ImprimeLista(inicio, "Conteúdo da lista:");
 		
 	while (1)
 	{	
-		printf("Informe o valor a excluir: ");
+		printf("\nInforme o valor a excluir: ");
 		scanf("%d", &numero);
 	
 		if (numero < 0)
 			break;
 		
-		/* Procurando o item a ser excluido */
+		/* procurando o item a ser excluído */
 		ant = NULL;
 		aux = inicio;
+
 		while (aux != NULL && numero != aux->valor)
 		{	
 			ant = aux;
@@ -71,19 +74,20 @@ int main(void)
 		}
 		
 		if (aux == NULL)
-			puts("Valor nao encontrado");
+			puts("\n\nValor não encontrado");
 		else
 		{	
-			/* Cuidando do encadeamento */
+			/* cuidando do encadeamento */
 			if (ant == NULL)
 				inicio = aux->prox;
 			else
 				ant->prox = aux->prox;
 			
-			/* Removendo o item da lista */
+			/* removendo o item da lista */
 			free(aux);
 
-			ImprimeLista(inicio, "Novo conteudo da lista:");
+			/* imprimindo os valores da lista */
+			ImprimeLista(inicio, "Novo conteúdo da lista:");
 		}
 	}
 	
@@ -92,28 +96,28 @@ int main(void)
 
 void ImprimeLista(TItem *lista, char *cabec)
 {	
-	/* imprimindo os valores da lista */
 	int soma, qtde;
 	TItem *aux;
 	
 	if (lista == NULL)
-		puts("Lista vazia");
+		puts("\n\nLista vazia");
 	else
 	{	
 		soma = 0;
 		qtde = 0;
 		printf("\n\n\n%s\n", cabec);
+
 		aux = lista;
 
 		while (aux != NULL)
 		{	
 			printf("%d\n", aux->valor);
+
 			soma = soma + aux->valor;
 			qtde = qtde + 1;
-			
 			aux = aux->prox;
 		}
 		
-		printf("Soma = %d   Media = %.2f\n", soma, soma / (float)qtde);
+		printf("\nSoma = %d   Média = %.2f\n", soma, soma / (float)qtde);
 	}
 }

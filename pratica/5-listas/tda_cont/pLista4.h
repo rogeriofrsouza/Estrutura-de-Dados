@@ -3,18 +3,18 @@
 */
 #define TRUE	1
 #define FALSE	0
-#define MAXIMO	50
+#define MAXIMO 50
 
 typedef int TItem;
 
-typedef struct
+typedef struct regLista
 {	
   int inicio, final, qtde, soma;
-	TItem lista[MAXIMO];	
+	TItem vet[MAXIMO];	
 } TLista;
 
-/* Protótipo das funções */
-void ImprimeLista(TLista *, char *);
+/* protótipo das funções */
 void InicializaLista(TLista *);
 int IncluiItem(TLista *, int);
+void ImprimeLista(TLista *, char *);
 int ExcluiItem(TLista *, int);
