@@ -65,12 +65,11 @@ int main(void)
       return 1;
     
     /* excluindo um valor da pilha */
-    printf("\nExcluindo o valor %d da pilha\n", pilha.topo->valor);
-
     aux = pilha.topo;
-    pilha.topo = pilha.topo->prox;
+    pilha.topo = aux->prox;
     pilha.qtde--;
-
+    
+    printf("\nExcluindo o valor %d da pilha\n", aux->valor);
     free(aux);
   }
   

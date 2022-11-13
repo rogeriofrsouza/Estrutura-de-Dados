@@ -1,96 +1,86 @@
 /*
-  O programa a seguir ilustra a implementação completa de uma fila de números inteiros representada por encadeamento em 
-  linguagem C. Para testá-lo, adapte-o para imprimir o conteúdo da fila antes e após a exclusão.
+  O programa a seguir ilustra a implementação completa de uma fila de números inteiros em linguagem C.
+  Implementada por ENCADEAMENTO.
+  Para testá-lo, adapte-o para imprimir o conteúdo da fila antes e após a exclusão.
 */
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-struct regfila 
+struct regItem 
 {
   int valor;
-  struct regfila *prox;
+  struct regItem *prox;
 };
-typedef struct regfila Tfila;
+typedef struct regItem TItem;
 
-struct descrFila 
+struct regFila 
 {
-  Tfila *inicio;
-  Tfila *final;
+  TItem *inicio, *final;
   int qtde;
 };
-typedef struct descrFila DFila;
+typedef struct regFila TFila;
 
 int main(void)
 {
-  Tfila *aux;
-  DFila descr;
+  TItem *aux;
+  TFila fila;
   int numero;
 
   /* inicializando os descritores da fila */
-   descr.inicio = NULL;
-   descr.final = NULL;
-   descr.qtde = 0;
+   fila.inicio = NULL;
+   fila.final = NULL;
+   fila.qtde = 0;
   
   while (1)
   {
-    printf("Informe o número:\n");
+    printf("\nInforme o número: ");
     scanf("%d", &numero);
     
     if (numero < 0)
       break;
     
-    /* alocando a struct Tfila dinamicamente */
-    aux = (Tfila *) malloc(sizeof(Tfila));
+    /* alocando a variável TItem dinamicamente */
+    aux = (TItem *) malloc(sizeof(TItem));
 
-    /* preenchendo os valores da struct alocada */
+    /* preenchendo os valores da variável alocada */
     aux->valor = numero;
     aux->prox = NULL;
     
     /* cuidando do encadeamento do novo nó na fila */
-    if (descr.inicio == NULL)
-      descr.inicio = aux;
+    if (fila.inicio == NULL)
+      fila.inicio = aux;
     else
-      descr.final->prox = aux;
+      fila.final->prox = aux;
     
     /* atualizando os descritores */
-    descr.final = aux;
-    descr.qtde++;
+    fila.final = aux;
+    fila.qtde++;
   }
   
-  while (1)
+  while (fila.inicio != NULL)
   {
-    /* imprime fila */
+    /* imprimindo os valores da fila */
     printf("\n\nConteúdo da fila:\n");
 
-    for (aux = descr.inicio; aux != NULL; aux = aux->prox)
+    for (aux = fila.inicio; aux != NULL; aux = aux->prox)
       printf("%d\n", aux->valor);
 
     printf("\nDigite 1 para excluir ou outra coisa para encerrar:\n");
     scanf("%d", &numero);
     
     if (numero != 1)
-      break;
+      return 1;
     
-    /* verifica se a fila está vazia */
-    if (descr.inicio != NULL)
-    {
-      aux = descr.inicio;
-      descr.inicio = descr.inicio->prox;
-      descr.qtde--;
-      
-      if (descr.inicio == NULL)
-        descr.final = NULL;
-      
-      /* excluindo um valor da fila */
-      printf("\nExcluindo o valor %d da fila\n", aux->valor);
-      free(aux);
-    }
-    else
-    {
-      printf("\nA fila está vazia\n");
-      break;
-    }
+    /* excluindo um valor da fila */
+    aux = fila.inicio;
+    fila.inicio = aux->prox;
+    fila.qtde--;
+    
+    printf("\nExcluindo o valor %d da fila\n", aux->valor);
+    free(aux);
   }
+
+  printf("\nA fila está vazia\n");
   
   return 0;
 }

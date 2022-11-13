@@ -3,30 +3,29 @@
   Implementada por CONTIGUIDADE.
   Para testá-lo, adapte-o para imprimir o conteúdo da fila antes e após a exclusão.
 */
-#include <stdlib.h>
 #include <stdio.h>
 
 #define MAX 50
 
-struct fila 
+struct regFila 
 {
   int inicio, fim;
   int vet[MAX];
 };
-typedef struct fila Fila;
+typedef struct regFila TFila;
 
 int main(void)
 {
-  Fila fila;
-  int num, i, aux;
+  TFila fila;
+  int num, i;
 
   /* inicializando a fila */
   fila.inicio = 0;
   fila.fim = 0;
   
-  while (fila.fim < MAX-1)
+  while (fila.fim < MAX - 1)
   {
-    printf("Informe o número:\n");
+    printf("\nInforme o número: ");
     scanf("%d", &num);
 
     if (num < 0)
@@ -41,7 +40,7 @@ int main(void)
 
   while (fila.inicio != fila.fim)
   {
-    /* imprimindo fila */
+    /* imprimindo os valores da fila */
     printf("\n\nConteúdo da fila:\n");
     
     for (i = fila.inicio; i < fila.fim; i++)
@@ -51,16 +50,14 @@ int main(void)
     scanf("%d", &num);
 
     if (num != 1)
-      exit(2);
-
-    aux = fila.vet[fila.inicio];
+      return 1;
 
     /* excluindo um valor da fila */
-    printf("\nExcluindo o valor %d da fila\n", aux);
+    printf("\nExcluindo o valor %d da fila\n", fila.vet[fila.inicio]);
     fila.inicio++;
   }
 
-  printf("\nA lista está vazia\n");
+  printf("\nA fila está vazia\n");
 
   return 0;
 }
