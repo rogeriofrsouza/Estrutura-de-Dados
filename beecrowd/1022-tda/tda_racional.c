@@ -15,11 +15,12 @@
 */
 #include <stdio.h>
 
-typedef struct {
+typedef struct 
+{
   int num, den;
 } TRac;
 
-/* Protótipos das funções */
+/* protótipos das funções */
 TRac SomaRac(TRac, TRac);
 TRac SubtraiRac(TRac, TRac);
 TRac MultRac(TRac, TRac);
@@ -42,20 +43,20 @@ int main(void)
 
   while (qtde)
   {
-    printf("\nInforme uma expressão matemática com dois números Racionais (Ex.: 1/5 + 2/3): \n");
+    printf("\nInforme uma expressão matemática com dois números racionais (Ex.: 1/5 + 2/3): \n");
     scanf("%d/%d %c %d/%d", &X.num, &X.den,
                             &op,
                             &Y.num, &Y.den);
     switch (op)
     {
       case '+':
-        R = SomaRac(X, Y); 
+        R = SomaRac(X, Y);
         break;
       case '-':
-        R = SubtraiRac(X, Y); 
+        R = SubtraiRac(X, Y);
         break;
       case '*':
-        R = MultRac(X, Y); 
+        R = MultRac(X, Y);
         break;
       case '/':
         R = DivRac(X, Y); 
@@ -77,7 +78,7 @@ TRac SomaRac(TRac n1, TRac n2)
 {
   TRac res;
 
-  /* Soma: (N1*D2 + N2*D1) / (D1*D2) */
+  /* soma: (N1*D2 + N2*D1) / (D1*D2) */
   res.num = n1.num * n2.den + n2.num * n1.den;
   res.den = n1.den * n2.den;
 
@@ -88,7 +89,7 @@ TRac SubtraiRac(TRac n1, TRac n2)
 {
   TRac res;
 
-  /* Subtração: (N1*D2 - N2*D1) / (D1*D2) */
+  /* subtração: (N1*D2 - N2*D1) / (D1*D2) */
   res.num = n1.num * n2.den - n2.num * n1.den;
   res.den = n1.den * n2.den;
 
@@ -99,7 +100,7 @@ TRac MultRac(TRac n1, TRac n2)
 {
   TRac res;
 
-  /* Multiplicação: (N1*N2) / (D1*D2) */
+  /* multiplicação: (N1*N2) / (D1*D2) */
   res.num = n1.num * n2.num;
   res.den = n1.den * n2.den;
 
@@ -110,7 +111,7 @@ TRac DivRac(TRac n1, TRac n2)
 {
   TRac res;
 
-  /* Divisão: (N1*D2)/(N2*D1) */
+  /* divisão: (N1*D2)/(N2*D1) */
   res.num = n1.num * n2.den;
   res.den = n2.num * n1.den;
 
@@ -129,7 +130,7 @@ TRac SimplRac(TRac n1)
 
 int mdc(int m, int n)
 {
-  /* Se o número for negativo, inverte o sinal */
+  /* se o número for negativo, inverte o sinal */
   if (m < 0)
     m = -m;
   if (n < 0)

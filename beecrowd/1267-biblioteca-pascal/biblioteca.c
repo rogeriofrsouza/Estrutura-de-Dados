@@ -32,7 +32,8 @@ int main()
     if (alumni == 0 && jantares == 0)
       break;
 
-    char mat[jantares][alumni*2];
+    /* declarando matriz */
+    char mat[jantares][alumni * 2];
 
     /* preenchendo participação dos alunos */
     printf("\nInforme se os alunos participaram (1) ou não (0) do jantar:\n");
@@ -41,9 +42,10 @@ int main()
       scanf(" %100[^\n]", mat[i]);
     
     /* calculando matriz */
-    for (j = 0; j < alumni; j+=2)
+    for (j = 0; j < alumni; j += 2)
     {
       cont = 0;
+
       for (i = 0; i < jantares; i++)
       {
         if (mat[i][j] == '1')
@@ -54,6 +56,7 @@ int main()
       if (cont == jantares)
         break;
     }
+
     if (cont == jantares)
       printf("\nyes\n");
     else
@@ -64,29 +67,3 @@ int main()
 
   return 0;
 }
-
-/* gerando a matriz de jantares dinamicamente
-  mat = (int *) malloc(jantares * sizeof(int *));
-
-  gerando o vetor de alunos dinamicamente
-  for (i = 0; i < jantares; i++)
-    mat[i] = (int *) malloc(alumni * sizeof(int));
-
-  preenchendo o vetor de alunos
-  for (i = 0; i < jantares; i++)
-  {
-    for (j = 0; j < alumni; j++)
-      mat[i][j] = j + 1;
-  }
-
-  for (i = 0; i < jantares; i++)  
-  {
-    printf("\nJantar %d\n", i + 1);
-
-    for (j = 0; j < alumni; j++)
-    {
-      printf("\nAluno %d: ", j + 1);
-      scanf("%d", mat[i][j]);
-    }
-  }
-*/

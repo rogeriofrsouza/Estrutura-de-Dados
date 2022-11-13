@@ -13,12 +13,12 @@
 */
 #include <stdio.h>
 
-typedef struct rac
+typedef struct regRac
 {
-    int num, den;
+  int num, den;
 } TRac;
 
-/* Protótipos das funções */
+/* protótipos das funções */
 TRac SomaRac(TRac, TRac);
 TRac SimplRac(TRac);
 
@@ -26,53 +26,51 @@ int mdc(int, int);
 
 int main(void)
 {
-    TRac X, Y, R, S;
+  TRac X, Y, R, S;
 
-    printf("Informe uma fração X (Ex.: 1/5): \n");
-    scanf("%d/%d", &X.num, &X.den);
+  printf("Informe uma fração X (Ex.: 1/5): \n");
+  scanf("%d/%d", &X.num, &X.den);
 
-    printf("\nInforme outra fração Y (Ex.: 4/3): \n");
-    scanf("%d/%d", &Y.num, &Y.den);
+  printf("\nInforme outra fração Y (Ex.: 4/3): \n");
+  scanf("%d/%d", &Y.num, &Y.den);
 
-    R = SomaRac(X, Y);
-    S = SimplRac(R);
+  R = SomaRac(X, Y);
+  S = SimplRac(R);
 
-    printf("\n%d/%d = %d/%d", R.num, R.den, S.num, S.den);
+  printf("\n%d/%d = %d/%d", R.num, R.den, 
+                            S.num, S.den);
 
-    return 0;
+  return 0;
 }
 
 TRac SomaRac(TRac n1, TRac n2)
 {
-    TRac res;
+  TRac res;
 
-    /* Soma: (N1*D2 + N2*D1) / (D1*D2) */
-    res.num = n1.num * n2.den + n2.num * n1.den;
-    res.den = n1.den * n2.den;
+  res.num = n1.num * n2.den + n2.num * n1.den;
+  res.den = n1.den * n2.den;
 
-    return res;
+  return res;
 }
 
 TRac SimplRac(TRac n1)
 {
-    TRac res;
+  TRac res;
 
-    res.num = n1.num / mdc(n1.num, n1.den);
-    res.den = n1.den / mdc(n1.num, n1.den);
+  res.num = n1.num / mdc(n1.num, n1.den);
+  res.den = n1.den / mdc(n1.num, n1.den);
 
-    return res;
+  return res;
 }
 
 int mdc(int m, int n)
 {
-    /* Se o número for negativo, inverte o sinal */
-    if (m < 0)
-        m = -m;
-    if (n < 0)
-        n = -n;
+  /* se o número for negativo, inverte o sinal */
+  if (m < 0) m = -m;
+  if (n < 0) n = -n;
 
-    if (m % n == 0)
-        return n;
+  if (m % n == 0)
+    return n;
 
-    return mdc(n, m % n);
+  return mdc(n, m % n);
 }
