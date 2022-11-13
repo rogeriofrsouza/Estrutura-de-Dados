@@ -14,37 +14,38 @@ struct regNo
 typedef struct regNo TNo;
 
 TNo * AchaPai(TNo *, int);
-void ImprimeArvore(TNo *, int);
 int ContaNos(TNo *);
+void ImprimeArvore(TNo *, int);
 int SomaNos(TNo *);
 int ContaPares(TNo *);
 
 int main(void)
 {
 	TNo *raiz = NULL, *aux, *pai;
-	int num;
+	int numero;
 
 	while (1)
 	{
-		printf("\nInforme o valor:\n");
-		scanf("%d", &num);
+		printf("\nInforme o valor: ");
+		scanf("%d", &numero);
 
-		if (num < 0) break;
-		
+		if (numero < 0)
+			break;
+
 		/* alocando um nó dinamicamente e inicializando os campos */
 		aux = (TNo *) malloc(sizeof(TNo));
 		aux->esq = NULL;
-		aux->valor = num;
+		aux->valor = numero;
 		aux->dir = NULL;
 
-		/* fazendo o encadeamento do novo nó */
-		pai = AchaPai(raiz, num);
+		/* Fazendo o encadeamento do novo nó */
+		pai = AchaPai(raiz, numero);
 
 		if (pai == NULL)
 			raiz = aux;
 		else
 		{
-			if (num <= pai->valor)
+			if (numero <= pai->valor)
 				pai->esq = aux;
 			else
 				pai->dir = aux;
@@ -53,6 +54,9 @@ int main(void)
 	
 	printf("\n\nA árvore possui %d elementos:\n", ContaNos(raiz));
 	ImprimeArvore(raiz, 0);
+
+	printf("\n\nSoma: %d", SomaNos(raiz));
+	printf("\nPares: %d\n", ContaPares(raiz));
 	
 	return 0;
 }
@@ -61,7 +65,7 @@ TNo * AchaPai(TNo *r, int n)
 {
 	if (r == NULL)
 		return NULL;
-
+	
 	if (n <= r->valor)
 	{
 		/* n é descendente do lado esquerdo de r */
@@ -94,11 +98,29 @@ void ImprimeArvore(TNo *r, int n)
 
 	if (r != NULL)
 	{
-		for (c = 0; c < n; c++) 
+		/* in-order */
+		ImprimeArvore(r->esq, n + 1);
+
+		for (c = 0; c < n; c++)
 			printf("\t");
 
 		printf("%d\n", r->valor);
-		ImprimeArvore(r->esq, n + 1);
 		ImprimeArvore(r->dir, n + 1);
 	}
+}
+
+int SomaNos(TNo *r)
+{
+	if (r == NULL)
+		return 0;
+	else
+		return r->valor + SomaNos(r->esq) + SomaNos(r->dir);
+}
+
+int ContaPares(TNo *r)
+{
+	if (r == NULL)
+		return 0;
+	else
+		return (r->valor % 2 == 0) + ContaPares(r->esq) + ContaPares(r->dir);
 }
