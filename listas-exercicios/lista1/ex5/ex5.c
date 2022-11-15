@@ -5,28 +5,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct no
+typedef struct regItem
 {
   char info[31];
-  struct no *ant, *prox;
-} No;
+  struct regItem *ant, *prox;
+} TItem;
 
-typedef struct lista
+typedef struct regLista
 {
-  No *inicio, *final;
-} Lista;
+  TItem *inicio, *final;
+} TLista;
 
 enum operacoes
 {
   uniao, intersec, dif1, dif2
 };
 
-void OperarConjuntos(Lista *, char *, int op);
+void OperaConjuntos(TLista *, char *, int op);
 
 int main()
 {
-  Lista conj[2];
-  No *aux;
+  TLista conj[2];
+  TItem *aux;
 
   int i;
   char str[31];
@@ -47,7 +47,7 @@ int main()
         break;
 
       /* alocando um novo nó dinamicamente */
-      aux = (No *) malloc(sizeof(No));
+      aux = (TItem *) malloc(sizeof(TItem));
 
       /* inicializando os campos do nó */
       strcpy(aux->info, str);
@@ -85,23 +85,23 @@ int main()
   }
 
   /* união dos conjuntos */
-  OperarConjuntos(conj, "União dos Conjuntos:", uniao);
+  OperaConjuntos(conj, "União dos Conjuntos:", uniao);
 
   /* intersecção dos conjuntos */
-  OperarConjuntos(conj, "Intersecção dos Conjuntos:", intersec);
+  OperaConjuntos(conj, "Intersecção dos Conjuntos:", intersec);
 
   /* diferença Conjunto1 – Conjunto2: */
-  OperarConjuntos(conj, "Diferença Conjunto 1 - Conjunto 2:", dif1);
+  OperaConjuntos(conj, "Diferença Conjunto 1 - Conjunto 2:", dif1);
 
   /* diferença Conjunto2 – Conjunto1: */
-  OperarConjuntos(conj, "Diferença Conjunto 2 - Conjunto 1:", dif2);
+  OperaConjuntos(conj, "Diferença Conjunto 2 - Conjunto 1:", dif2);
 
   return 0;
 }
 
-void OperarConjuntos(Lista *conj, char *cabec, int op)
+void OperaConjuntos(TLista *conj, char *cabec, int op)
 {
-  No *aux, *p;
+  TItem *aux, *p;
   int cont;
 
   printf("\n%s\n", cabec);

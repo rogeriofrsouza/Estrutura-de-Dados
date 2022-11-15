@@ -3,22 +3,21 @@
 */
 #define MAXIMO 10
 
-typedef struct cidade
+typedef struct regCidade
 {
   char nome[31];
   int pop;
   float area, pib, idh;
-} Cidade;
+} TCidade;
 
-typedef struct lista
+typedef struct regLista
 {
   int inicio, final;
-  Cidade vet[MAXIMO];
-} Lista;
+  TCidade vet[MAXIMO];
+} TLista;
 
-/* Protótipos das funções */
-void InicializaLista(Lista *);
-void IncluiItem(Lista *, Cidade);
-void ImprimeLista(Lista *, char *);
-void ImprimeCidade(Cidade cidade);
-int ExcluiItem(Lista *, float);
+/* protótipos das funções */
+void InicializaLista(TLista *);
+void IncluiItem(TLista *, TCidade);
+void ImprimeLista(TLista *, char *, char *);
+int ExcluiItem(TLista *, float);

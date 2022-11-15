@@ -4,24 +4,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct no
+typedef struct regItem
 {
-  int info;
-  struct no *ant, *prox;
-} No;
+  int valor;
+  struct regItem *ant, *prox;
+} TItem;
 
-typedef struct lista
+typedef struct regLista
 {
-  No *inicio, *final;
-} Lista;
+  TItem *inicio, *final;
+} TLista;
 
-void IncluiItem(Lista *, int);
-void ImprimeListas(Lista *, char *);
-void ExcluiItem(Lista *);
+void IncluiItem(TLista *, int);
+void ImprimeListas(TLista *, char *);
+void ExcluiItem(TLista *);
 
 int main()
 {
-  Lista lista[2];
+  TLista lista[2];
 
   int i, num;
 
@@ -31,7 +31,7 @@ int main()
     lista[i].inicio = NULL;
     lista[i].final = NULL;
 
-    printf("\nLista %d\n", i+1);
+    printf("\nLista %d\n", i + 1);
     
     while (1)
     {
@@ -44,28 +44,28 @@ int main()
     }
   }
 
-  /* imprimindo listas */
+  /* imprime listas */
   ImprimeListas(lista, "Situação inicial:");
   
-  /* excluindo elementos */
+  /* exclui elementos da lista */
   ExcluiItem(lista);
 
-  /* imprimindo listas */
+  /* imprime listas */
   ImprimeListas(lista, "Situação final:");
   printf("\n\n");
 
   return 0;
 }
 
-void IncluiItem(Lista *lista, int num)
+void IncluiItem(TLista *lista, int num)
 {
-  No *aux;
+  TItem *aux;
 
   /* alocando um nó da lista dinamicamente */
-  aux = (No *) malloc(sizeof(No));
+  aux = (TItem *) malloc(sizeof(TItem));
 
   /* inicializando os campos do nó */
-  aux->info = num;
+  aux->valor = num;
   aux->ant = NULL;
   aux->prox = NULL;
 
@@ -82,16 +82,16 @@ void IncluiItem(Lista *lista, int num)
   lista->final = aux;
 }
 
-void ImprimeListas(Lista *lista, char *cabec)
+void ImprimeListas(TLista *lista, char *cabec)
 {
-  No *aux;
+  TItem *aux;
   int i;
 
   printf("\n\n%s", cabec);
 
   for (i = 0; i < 2; i++)
   { 
-    printf("\nLista %d:", i+1);
+    printf("\nLista %d:", i + 1);
 
     if (lista[i].inicio == NULL)
     {
@@ -100,13 +100,13 @@ void ImprimeListas(Lista *lista, char *cabec)
     }
 
     for (aux = lista[i].inicio; aux != NULL; aux = aux->prox)
-      printf(" %d", aux->info);
+      printf(" %d", aux->valor);
   }
 }
 
-void ExcluiItem(Lista *lista)
+void ExcluiItem(TLista *lista)
 {
-  No *aux, *p;
+  TItem *aux, *p;
 
   for (aux = lista[0].inicio; aux != NULL; aux = aux->prox)
   {
@@ -114,9 +114,10 @@ void ExcluiItem(Lista *lista)
     {
       p = lista[1].inicio;
       
-      while ((p != NULL) && (p->info != aux->info))
+      while ((p != NULL) && (p->valor != aux->valor))
         p = p->prox;
 
+      /* saindo do loop */
       if (p == NULL)
         break;
           

@@ -4,47 +4,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct no
+typedef struct regItem
 {
   char info;
-  struct no *prox;
-} No;
+  struct regItem *prox;
+} TItem;
 
-typedef struct pilha
+typedef struct regPilha
 {
-  No *topo;
-} Pilha;
+  TItem *topo;
+} TPilha;
 
-void Empilhar(Pilha *, char);
-char Desempilhar(Pilha *);
-int VerificarDelimitadores(char, char);
+void EmpilhaItem(TPilha *, char);
+char DesempilhaItem(TPilha *);
+int VerificaDelimitadores(char, char);
 
 int main()
 {
-  Pilha pilha;
-  char d, expr[21];
+  TPilha pilha;
+  char expr[21], d;
   int i;
 
   /* inicializando a pilha */
   pilha.topo = NULL;
 
   printf("Informe uma expressão matemática:\n");
-  scanf("%s", expr);
+  fgets(expr, 21, stdin);
 
   /* verificando delimitadores */
   for (i = 0; expr[i] != '\0'; i++)
   {
     if (expr[i] == '(' || expr[i] == '[' || expr[i] == '{')
     {
-      Empilhar(&pilha, expr[i]);
+      EmpilhaItem(&pilha, expr[i]);
     }
     else if (expr[i] == ')' || expr[i] == ']' || expr[i] == '}')
     {
-      d = Desempilhar(&pilha);
+      d = DesempilhaItem(&pilha);
 
-      if (VerificarDelimitadores(d, expr[i]) == 0)
+      if (VerificaDelimitadores(d, expr[i]) == 0)
       {
-        printf("\nErro: delimitadores não compatíveis\n\n");
+        printf("\nDelimitadores não compatíveis\n\n");
         exit(1);
       }
     }
@@ -54,20 +54,17 @@ int main()
   if (pilha.topo == NULL)
     printf("\nA expressão é válida e está balanceada\n\n");
   else
-  {
     printf("\nA expressão não é válida\n\n");
-    return 1;
-  }
 
   return 0;
 }
 
-void Empilhar(Pilha *pilha, char d)
+void EmpilhaItem(TPilha *pilha, char d)
 {
-  No *aux;
+  TItem *aux;
 
   /* alocando um nó dinamicamente */
-  aux = (No *) malloc(sizeof(No));
+  aux = (TItem *) malloc(sizeof(TItem));
 
   /* inicializando os campos */
   aux->info = d;
@@ -77,9 +74,9 @@ void Empilhar(Pilha *pilha, char d)
   pilha->topo = aux;
 }
 
-char Desempilhar(Pilha *pilha)
+char DesempilhaItem(TPilha *pilha)
 {
-  No *aux;
+  TItem *aux;
   char d;
 
   aux = pilha->topo;
@@ -96,19 +93,15 @@ char Desempilhar(Pilha *pilha)
   return d;
 }
 
-int VerificarDelimitadores(char d1, char d2)
+int VerificaDelimitadores(char d1, char d2)
 {
-  switch (d1)
+  char delimit[6] = {'(', ')', '[', ']', '{', '}'};
+  int i;
+
+  for (i = 0; i < 6; i += 2)
   {
-    case '(': 
-      if (d2 == ')') return 1;
-      break;
-    case '[':
-      if (d2 == ']') return 1;
-      break;
-    case '{':
-      if (d2 == '}') return 1;
-      break;
+    if ((d1 == delimit[i]) && (d2 == delimit[i + 1]))
+      return 1;
   }
 
   return 0;

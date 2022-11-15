@@ -1,18 +1,18 @@
 /*
-	Arquivo fonte da IMPLEMENTACAO do TDA de lista linear por CONTIGUIDADE,
+	Arquivo fonte da IMPLEMENTAÇÃO do TDA de lista linear por CONTIGUIDADE,
 	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>
 #include <string.h>
 #include "ex2.h"
 
-void InicializaLista(Lista *lista)
+void InicializaLista(TLista *lista)
 {
   lista->inicio = 0;
   lista->final = 0;
 }
 
-void IncluiItem(Lista *lista, Cidade cidade)
+void IncluiItem(TLista *lista, TCidade cidade)
 {
   if (lista->final == MAXIMO)
     return;
@@ -25,40 +25,45 @@ void IncluiItem(Lista *lista, Cidade cidade)
   lista->vet[lista->final].idh = cidade.idh;
 
   /* atualizando descritor */
-  lista->final += 1;
+  lista->final++;
 }
 
-void ImprimeLista(Lista *lista, char *cabec)
+void ImprimeLista(TLista *lista, char *cabec, char *op)
 {
-  int i;
+  int i, aux;
 
-  /* imprimindo do início */
-  printf("\n\n%s [início]\n", cabec);
+  printf("\n\n%s [%s]\n", cabec, op);
 
-  for (i = lista->inicio; i < lista->final; i++)
-    ImprimeCidade(lista->vet[i]);
+  if (strcmp(op, "inicio") == 0)
+  {
+    i = lista->inicio;
+    aux = lista->final;
+  }
+  else
+  {
+    i = lista->final - 1;
+    aux = lista->inicio - 1;
+  } 
 
-  /* imprimindo do final */
-  printf("\n\n%s [final]\n", cabec);
+  while (i != aux)
+  {
+    printf("\nCidade: %s", lista->vet[i].nome);
+    printf("\nPopulação: %d", lista->vet[i].pop);
+    printf("\nÁrea: %.2f", lista->vet[i].area);
+    printf("\nPIB: %.2f", lista->vet[i].pib);
+    printf("\nIDH: %.2f\n", lista->vet[i].idh);
 
-  for (i = lista->final-1; i >= lista->inicio; i--)
-    ImprimeCidade(lista->vet[i]);
+    if (strcmp(op, "inicio") == 0)
+      i++;
+    else
+      i--;
+  }
 }
 
-void ImprimeCidade(Cidade cidade)
+int ExcluiItem(TLista *lista, float num)
 {
-  printf("\nCidade: %s", cidade.nome);
-  printf("\nPopulação: %d", cidade.pop);
-  printf("\nÁrea: %.2f", cidade.area);
-  printf("\nPIB: %.2f", cidade.pib);
-  printf("\nIDH: %.2f\n", cidade.idh);
-}
+  int cont = 0, idx;
 
-int ExcluiItem(Lista *lista, float num)
-{
-  int cont, idx;
-
-  cont = 0;
   while (1)
   {
     idx = lista->inicio;

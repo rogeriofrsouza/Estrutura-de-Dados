@@ -7,17 +7,17 @@
 
 int main()
 {
-  Cidade cidade;
-  Lista lista;
+  TCidade cidade;
+  TLista lista;
   float num;
 
-  /* inicializando os descritores */
+  /* inicializa os descritores da lista */
   InicializaLista(&lista);
 
   while (1)
   {
     printf("\nNome da cidade: ");
-    scanf(" %30[^\n]", cidade.nome);
+    scanf(" %30[^\n]", cidade.nome);  // fgets(cidade.nome, 30, stdin)
 
     if (strcmp(cidade.nome, "FIM") == 0)
       break;
@@ -34,7 +34,7 @@ int main()
     printf("IDH: ");
     scanf("%f", &cidade.idh);
     
-    /* incluindo item na lista */
+    /* inclui item na lista */
     IncluiItem(&lista, cidade);
   }
 
@@ -42,8 +42,9 @@ int main()
   if (lista.inicio == lista.final)
     return 1;
 
-  /* imprimindo a lista */
-  ImprimeLista(&lista, "Conteúdo da lista:");
+  /* imprime a lista */
+  ImprimeLista(&lista, "Conteúdo da lista:", "inicio");
+  ImprimeLista(&lista, "Conteúdo da lista:", "final");
 
   while (1)
   {
@@ -53,7 +54,9 @@ int main()
     if (num < 0)
       break;
 
-    if (ExcluiItem(&lista, num))
+    if (ExcluiItem(&lista, num) == 0)
+      printf("\nNão foi encontrada cidade");
+    else
     {
       /* checando se lista vazia */
       if (lista.inicio == lista.final)
@@ -63,11 +66,9 @@ int main()
       }
 
       /* imprimindo a nova lista */
-      ImprimeLista(&lista, "Novo conteúdo da lista:");
+      ImprimeLista(&lista, "Novo conteúdo da lista:", "inicio");
+      ImprimeLista(&lista, "Novo conteúdo da lista:", "final");
     }
-    else
-      /* não encontrou */
-      printf("\nNão foi encontrada cidade");
   }
 
   return 0;

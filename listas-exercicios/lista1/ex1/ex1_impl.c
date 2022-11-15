@@ -1,5 +1,5 @@
 /*
-	Arquivo fonte da IMPLEMENTACAO do TDA de lista linear por ENCADEAMENTO,
+	Arquivo fonte da IMPLEMENTAÇÃO do TDA de lista linear por ENCADEAMENTO,
 	com as definições de tipo de dados e subrotinas.
 */
 #include <stdio.h>
@@ -7,25 +7,25 @@
 #include <string.h>
 #include "ex1.h"
 
-void InicializaLista(Lista *lista)
+void InicializaLista(TLista *lista)
 {
   lista->inicio = NULL;
   lista->final = NULL;
 }
 
-void IncluiItem(Lista *lista, Cidade cidade)
+void IncluiItem(TLista *lista, TCidade cidade)
 {
-  No *aux;
+  TNo *aux;
 
   /* alocando um nó da lista dinamicamente */
-  aux = (No *) malloc(sizeof(No));
+  aux = (TNo *) malloc(sizeof(TNo));
 
   /* inicializando os campos do nó */
   aux->ant = NULL;
   aux->prox = NULL;
 
-  /* alocando a estrutura Cidade dinamicamente */
-  aux->info = (Cidade *) malloc(sizeof(Cidade));
+  /* alocando a estrutura TCidade dinamicamente */
+  aux->info = (TCidade *) malloc(sizeof(TCidade));
 
   /* preenchendo os valores de cidade */
   strcpy(aux->info->nome, cidade.nome);
@@ -47,43 +47,36 @@ void IncluiItem(Lista *lista, Cidade cidade)
   lista->final = aux;
 }
 
-void ImprimeLista(Lista *lista, char *cabec)
+void ImprimeLista(TLista *lista, char *cabec, char *op)
 {
-  No *aux;
+  TNo *aux;
 
-  /* imprimindo do início */
-  printf("\n\n%s [início]\n", cabec);
+  printf("\n\n%s [%s]\n", cabec, op);
 
-  for (aux = lista->inicio; aux != NULL; aux = aux->prox)
-    ImprimeCidade(aux);
+  aux = strcmp(op, "inicio") == 0 ? lista->inicio : lista->final;
 
-  /* imprimindo do final */
-  printf("\n\n%s [final]\n", cabec);
+  while (aux != NULL)
+  {
+    printf("\nCidade: %s", aux->info->nome);
+    printf("\nPopulação: %d", aux->info->pop);
+    printf("\nÁrea: %.2f", aux->info->area);
+    printf("\nPIB: %.2f", aux->info->pib);
+    printf("\nIDH: %.2f\n", aux->info->idh);
 
-  for (aux = lista->final; aux != NULL; aux = aux->ant)
-    ImprimeCidade(aux);
+    aux = strcmp(op, "inicio") == 0 ? aux->prox : aux->ant;
+  }
 }
 
-void ImprimeCidade(No *aux)
+int ExcluiItem(TLista *lista, float num)
 {
-  printf("\nCidade: %s", aux->info->nome);
-  printf("\nPopulação: %d", aux->info->pop);
-  printf("\nÁrea: %.2f", aux->info->area);
-  printf("\nPIB: %.2f", aux->info->pib);
-  printf("\nIDH: %.2f\n", aux->info->idh);
-}
+  TNo *aux;
+  int cont = 0;
 
-int ExcluiItem(Lista *lista, float num)
-{
-  No *aux;
-  int cont;
-
-  cont = 0;
   while (1)
   {
     aux = lista->inicio;
 
-    /* percorrendo lista */
+    /* percorrendo a lista */
     while ((aux != NULL) && (aux->info->idh < num))
       aux = aux->prox;
 

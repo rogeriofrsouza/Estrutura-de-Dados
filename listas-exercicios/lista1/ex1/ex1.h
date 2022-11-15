@@ -1,27 +1,26 @@
 /* 
   Arquivo de INTERFACE para a implementação TDA de lista linear por ENCADEAMENTO 
 */
-typedef struct cidade
+typedef struct regCidade
 {
   char nome[31];
   int pop;
   float area, pib, idh;
-} Cidade;
+} TCidade;
 
-typedef struct no
+typedef struct regNo
 {
-  Cidade *info;
-  struct no *prox, *ant;
-} No;
+  TCidade *info;
+  struct regNo *prox, *ant;
+} TNo;
 
-typedef struct lista
+typedef struct regLista
 {
-  No *inicio, *final;
-} Lista;
+  TNo *inicio, *final;
+} TLista;
 
-/* Protótipos das funções */
-void InicializaLista(Lista *);
-void IncluiItem(Lista *, Cidade);
-void ImprimeLista(Lista *, char *);
-void ImprimeCidade(No *aux);
-int ExcluiItem(Lista *, float);
+/* protótipos das funções */
+void InicializaLista(TLista *);
+void IncluiItem(TLista *, TCidade);
+void ImprimeLista(TLista *, char *, char *);
+int ExcluiItem(TLista *, float);
