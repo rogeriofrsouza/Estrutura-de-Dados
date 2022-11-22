@@ -4,7 +4,8 @@
 */
 #include <stdio.h>
 
-struct regDados {
+struct regDados 
+{
   int quantidade; 
   float valor;
 };
@@ -26,10 +27,10 @@ int main()
   vDado.quantidade = 15;
   pDado->valor = (*pDado).quantidade * 4.85;
 
-  printf("Comprimento: %d\n", comprimento);  /* 25 */
-  printf("Altura: %f\n", altura);  /* 32.87 */
-  printf("regDados - quantidade: %d\n", *pin);  /* 15 */
-  printf("regDados - valor: %f", *pfl);  /* 72,75 */
+  printf("Comprimento: %d\n", comprimento);
+  printf("Altura: %f\n", altura);
+  printf("regDados - quantidade: %d\n", *pin);
+  printf("regDados - valor: %f", *pfl);
 
   return 0;
 }

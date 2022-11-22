@@ -10,8 +10,9 @@ int main()
   b = a;
   c = b;
 
-  printf("A: %f\n", *a);
   printf("C: %f", *c);
+  printf("B: %f\n", *b);
+  printf("A: %f\n", *a);
 
   return 0;
 }

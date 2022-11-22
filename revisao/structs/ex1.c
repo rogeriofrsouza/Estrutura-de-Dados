@@ -6,7 +6,8 @@
 */
 #include <stdio.h>
 
-struct regData {
+struct regData 
+{
   unsigned char dia, mes; 
   unsigned short int ano;
 };
@@ -19,7 +20,7 @@ int main()
   data1.mes = 8;
   data1.ano = 2009;
 
-  printf("Informe uma data (dd/mm/aaaa): \n");
+  printf("Informe uma data (dd/mm/aaaa):\n");
   scanf("%hhu/%hhu/%hu", &data2.dia, &data2.mes, &data2.ano);
 
   printf("\nData 1: %hhu/%hhu/%hu", data1.dia, data1.mes, data1.ano);

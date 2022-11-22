@@ -6,20 +6,20 @@
   Assuma que o nome do primeiro parâmetro formal é v.
 */
 #include <stdio.h>
+
 #define MAX 50
 
-struct regDados {
+typedef struct regDados 
+{ 
   int info;
-};
-typedef struct regDados RegDados;
+} Dados;
 
-/* pesquisa se o valor está na lista */
-RegDados * Pesquisar(RegDados *, int);
+Dados * Pesquisar(Dados *, int);
 
 int main() 
 {
-  RegDados vet[MAX], *x;
-  int b, cont, i;
+  Dados vet[MAX], *x;
+  int b, cont = 0, i;
   
   /* inicializa o vetor */
   vet[0].info = 2;
@@ -27,29 +27,32 @@ int main()
   vet[2].info = 3;
   vet[3].info = 8;
 
+  /* pesquisa se o valor está na lista */
   x = Pesquisar(vet, 8);
 
   for (i = 0; i < MAX; i++)
   {
     if (&vet[i] != x)
       cont++;
+    else
+      break;
   }
 
-  b = cont * sizeof(vet[i]);
-  printf("Bytes entre o início do array na memória e o início do elemento onde o valor foi encontrado: %d", b);
+  b = cont * sizeof(Dados);
+  printf("Bytes entre o início do array na memória e o início do elemento encontrado: %d", b);
 
   return 0;
 }
 
-RegDados * Pesquisar(RegDados *vet, int valor)
+Dados * Pesquisar(Dados *vet, int valor)
 {
-  int i;
+  int i = 0;
 
-  for (i = 0; i < MAX; i++)
-  {
-    if (vet[i].info == valor)
-      break;
-  }
+  while (i < MAX && vet[i].info != valor)
+    i++;
+
+  if (i == MAX)
+    return NULL;
 
   return &vet[i];
 }
