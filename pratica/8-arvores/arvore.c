@@ -5,13 +5,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct regNo
+typedef struct regNo
 {
 	struct regNo *esq;
 	int valor;
 	struct regNo *dir;
-};
-typedef struct regNo TNo;
+} TNo;
 
 TNo * AchaPai(TNo *, int);
 int ContaNos(TNo *);
@@ -34,11 +33,12 @@ int main(void)
 
 		/* alocando um nó dinamicamente e inicializando os campos */
 		aux = (TNo *) malloc(sizeof(TNo));
+
 		aux->esq = NULL;
 		aux->valor = numero;
 		aux->dir = NULL;
 
-		/* Fazendo o encadeamento do novo nó */
+		/* fazendo o encadeamento do novo nó */
 		pai = AchaPai(raiz, numero);
 
 		if (pai == NULL)
@@ -52,9 +52,11 @@ int main(void)
 		}
 	}
 	
+	/* imprime quantidade de nós e estrutura da árvore */
 	printf("\n\nA árvore possui %d elementos:\n", ContaNos(raiz));
 	ImprimeArvore(raiz, 0);
 
+	/* imprime soma dos nós e quantidade de pares */
 	printf("\n\nSoma: %d", SomaNos(raiz));
 	printf("\nPares: %d\n", ContaPares(raiz));
 	
@@ -105,6 +107,7 @@ void ImprimeArvore(TNo *r, int n)
 			printf("\t");
 
 		printf("%d\n", r->valor);
+
 		ImprimeArvore(r->dir, n + 1);
 	}
 }
