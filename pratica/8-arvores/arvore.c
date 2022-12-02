@@ -1,6 +1,7 @@
 /*
 	Programa de construção e impressão de uma árvore binária ordenada.
 	É o mesmo programa existente em 66_ED-Arvores.pdf
+	Faz a exclusão de nós.
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,18 +18,21 @@ int ContaNos(TNo *);
 void ImprimeArvore(TNo *, int);
 int SomaNos(TNo *);
 int ContaPares(TNo *);
+int ExcluiNo(TNo *, int );
+int AchaMenor(TNo *);
 
 int main(void)
 {
 	TNo *raiz = NULL, *aux, *pai;
 	int numero;
 
+	printf("Informe os valores:\n");
+
 	while (1)
 	{
-		printf("\nInforme o valor: ");
 		scanf("%d", &numero);
 
-		if (numero < 0)
+		if (numero < 1)
 			break;
 
 		/* alocando um nó dinamicamente e inicializando os campos */
@@ -52,13 +56,32 @@ int main(void)
 		}
 	}
 	
-	/* imprime quantidade de nós e estrutura da árvore */
 	printf("\n\nA árvore possui %d elementos:\n", ContaNos(raiz));
 	ImprimeArvore(raiz, 0);
 
-	/* imprime soma dos nós e quantidade de pares */
 	printf("\n\nSoma: %d", SomaNos(raiz));
-	printf("\nPares: %d\n", ContaPares(raiz));
+	printf("\nPares: %d\n\n", ContaPares(raiz));
+
+	while (1)
+	{
+		printf("\nInforme o valor a excluir:\n");
+		scanf("%d", &numero);
+
+		if (numero < 1)
+			break;
+
+		if (ExcluiNo(raiz, numero) == 0)
+			printf("\nValor não encontrado");
+		else
+		{
+			printf("\nValor %d excluído da árvore\n", numero);
+
+			if (ContaNos(raiz) == 0)
+				break;
+
+			ImprimeArvore(raiz, 0);
+		}
+	}
 	
 	return 0;
 }
@@ -126,4 +149,101 @@ int ContaPares(TNo *r)
 		return 0;
 	else
 		return (r->valor % 2 == 0) + ContaPares(r->esq) + ContaPares(r->dir);
+}
+
+int ExcluiNo(TNo *r, int n)
+{
+	TNo *ant = NULL;
+	int aux;
+	
+	while (r != NULL && n != r->valor)
+	{
+		ant = r;
+
+		if (n < r->valor)
+		{
+			/* n é descendente do lado esquerdo de r */
+			r = r->esq;
+		}
+		else
+		{
+			/* n é descendente do lado direito de r */
+			r = r->dir;
+		}
+	}
+
+	if (r == NULL)
+		return 0;
+
+	/* 1. excluindo uma folha */
+	if (r->esq == NULL && r->dir == NULL)
+	{
+		if (ant != NULL)
+		{
+			if (r->valor <= ant->valor)
+				ant->esq = NULL;
+			else
+				ant->dir = NULL;
+		}
+	}
+	/* 2. excluindo nó com dois descendentes */
+	else if (r->esq != NULL && r->dir != NULL)
+	{
+		aux = AchaMenor(r->dir);
+
+		if (ExcluiNo(r, aux))
+		{
+			r->valor = aux;
+			return 2;
+		}
+	}
+	/* 3. excluindo nó com um descendente */
+	else
+	{
+		if (ant != NULL)
+		{
+			
+			if (r->valor <= ant->valor)
+			{
+				/* r descendente do lado esquerdo */
+				ant->esq = r->esq != NULL ? r->esq : r->dir;
+			}
+			else
+			{
+				/* r descendente do lado direito */
+				ant->dir = r->esq != NULL ? r->esq : r->dir;
+			}
+		}
+		/* últimos 2 nós da árvore */
+		else
+		{
+			ant = r;
+			
+			if (ant->esq != NULL)
+			{
+				r = ant->esq;
+				ant->esq = NULL;
+			}
+			else
+			{
+				r = ant->dir;
+				ant->dir = NULL;
+			}
+
+			ant->valor = r->valor;
+		}
+	}
+
+	/* excluindo nó da árvore */
+	free(r);
+	
+	return 1;
+}
+
+int AchaMenor(TNo *r)
+{
+	if (r->esq == NULL)
+		return r->valor;
+	else
+		return AchaMenor(r->esq);
 }
