@@ -10,10 +10,12 @@
 
 typedef int TNo;
 
+void ImprimeHeap(TNo *, int, int, int);
+
 int main(void)
 {
   TNo vet[MAX];
-  int final, m, f, aux, qtde, nivel, idx;
+  int final, m, f, aux;
 
   printf("Informe os valores:\n");
 
@@ -49,29 +51,27 @@ int main(void)
     m++;
   }
 
-  /* imprimindo Max-Heap */
-  printf("\n\n");
-
-  qtde = 0;
-  nivel = 0;
-  idx = 1;
-
-  while (1)
-  {
-    qtde += (int) pow(2, (double) nivel);
-
-    while (idx <= qtde && idx < final)
-    {
-      printf("%d ", vet[idx]);
-      idx++;
-    }
-    
-    if (idx == final)
-      break;
-
-    printf("\n");
-    nivel++;
-  };
+  printf("\n\nO Max-Heap possui %d elementos:\n", final - 1);
+  ImprimeHeap(vet, 1, 0, final);
   
   return 0;
+}
+
+void ImprimeHeap(TNo *vet, int i, int nivel, int final)
+{
+	int c;
+
+	if (i < final)
+	{
+    /* descendente lado esquerdo */
+		ImprimeHeap(vet, i * 2, nivel + 1, final);
+
+		for (c = 0; c < nivel; c++)
+			printf("\t");
+
+		printf("%d\n", vet[i]);
+
+    /* descendente lado direito */
+		ImprimeHeap(vet, i * 2 + 1, nivel + 1, final);
+	}
 }
