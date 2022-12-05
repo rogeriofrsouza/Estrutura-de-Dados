@@ -58,19 +58,12 @@ int main(void)
   printf("\n\nA árvore possui %d elementos:\n", ContaNos(raiz));
 	ImprimeArvore(raiz, 0);
 
-  /* Maior valor contido na árvore. */
   printf("\nMaior valor contido na árvore: %d", MaiorValor(raiz));
-
-  /* Menor valor contido na árvore. */
   printf("\nMenor valor contido na árvore: %d", MenorValor(raiz));
-
-  /* Quantidade de folhas da árvore. */
   printf("\nQuantidade de folhas da árvore: %d", ContaFolhas(raiz));
-
-  /* A altura da árvore. */
   printf("\nAltura da árvore: %d", AchaAltura(raiz));
 
-  /* Pesquisa na árvore de um valor informado pelo usuário. */
+  /* pesquisando na árvore um valor informado */
   while (1)
   {
     printf("\nInforme um valor para pesquisar:\n");
@@ -80,7 +73,7 @@ int main(void)
       break;
 
     if (Pesquisa(raiz, numero) == 0)
-      printf("\nValor não encontrado");
+      printf("\nValor NÃO encontrado");
     else
       printf("\nValor %d encontrado", numero);
   }

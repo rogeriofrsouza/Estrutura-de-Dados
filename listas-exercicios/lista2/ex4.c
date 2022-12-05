@@ -23,7 +23,7 @@ int main(void)
 
   for (i = 0; i < 2; i++)
   {
-    printf("\nInforme os valores [Árvore %d]\n", i + 1);
+    printf("\nÁrvore %d\nInforme os valores:\n", i + 1);
 
     while (1)
     {
