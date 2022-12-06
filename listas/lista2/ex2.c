@@ -61,9 +61,9 @@ int main(void)
   printf("\nMaior valor contido na árvore: %d", MaiorValor(raiz));
   printf("\nMenor valor contido na árvore: %d", MenorValor(raiz));
   printf("\nQuantidade de folhas da árvore: %d", ContaFolhas(raiz));
-  printf("\nAltura da árvore: %d", AchaAltura(raiz));
+  printf("\nAltura da árvore: %d\n", AchaAltura(raiz));
 
-  /* pesquisando na árvore um valor informado */
+  /* pesquisando um valor na árvore */
   while (1)
   {
     printf("\nInforme um valor para pesquisar:\n");
@@ -151,7 +151,7 @@ int ContaFolhas(TNo *r)
   if (r == NULL)
     return 0;
   else
-    return (r->dir == NULL && r->esq == NULL) + ContaFolhas(r->esq) + ContaFolhas(r->dir);
+    return (r->esq == NULL && r->dir == NULL) + ContaFolhas(r->esq) + ContaFolhas(r->dir);
 }
 
 int AchaAltura(TNo *r)
@@ -159,7 +159,7 @@ int AchaAltura(TNo *r)
   if (r == NULL)
     return 0;
   else
-    return (r->dir != NULL || r->esq != NULL) + AchaAltura(r->esq) + AchaAltura(r->dir);
+    return (r->esq != NULL || r->dir != NULL) + AchaAltura(r->esq) + AchaAltura(r->dir);
 }
 
 int Pesquisa(TNo *r, int n)

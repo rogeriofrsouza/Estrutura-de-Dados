@@ -58,7 +58,7 @@ int main(void)
   printf("\nEliminar todos os nós da árvore?\n[1] SIM\n[0] NÃO\n");
   scanf("%d", &numero);
 
-  if (numero)
+  if (numero == 1)
   {
     EliminaNos(raiz);
     printf("\nÁrvore vazia\n");

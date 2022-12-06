@@ -18,7 +18,7 @@ int ChecaArvores(TNo *, TNo *);
 
 int main(void)
 {
-  TNo *raiz[2] = {NULL, NULL}, *aux, *pai;
+  TNo * raiz[2] = {NULL, NULL}, *aux, *pai;
   int i, numero;
 
   for (i = 0; i < 2; i++)
@@ -61,7 +61,7 @@ int main(void)
   }
 
   /* determinando se árvores são equivalentes */
-  if (ChecaArvores(raiz[0], raiz[1]) == ContaNos(raiz[0]))
+  if (ContaNos(raiz[0]) == ContaNos(raiz[1]) && ChecaArvores(raiz[0], raiz[1]) == ContaNos(raiz[0]))
     printf("\nÁrvores equivalentes\n");
   else
     printf("\nÁrvores NÃO equivalentes\n");

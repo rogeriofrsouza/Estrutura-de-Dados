@@ -14,7 +14,7 @@ typedef struct regNo
 TNo * AchaPai(TNo *, int);
 void ImprimeArvore(TNo *);
 
-int main (void)
+int main(void)
 {
   TNo *raiz = NULL, *aux, *pai;
   int numero;
@@ -81,7 +81,7 @@ TNo * AchaPai(TNo *r, int n)
 
 void ImprimeArvore(TNo *r)
 {
-  /* pre-order */
+  /* in-order */
   printf("<");
 
   if (r == NULL)
@@ -90,9 +90,9 @@ void ImprimeArvore(TNo *r)
     return;
   }
 
+  ImprimeArvore(r->esq);
   printf("%d", r->valor);
 
-  ImprimeArvore(r->esq);
   ImprimeArvore(r->dir);
   printf(">");
 }
