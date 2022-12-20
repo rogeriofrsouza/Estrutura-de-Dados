@@ -1,4 +1,6 @@
-/* 1) Com base no código a seguir, desenhe as variáveis e seus conteúdos finais. */
+/* 
+  Exercício 1 
+*/
 #include <stdio.h>
 
 int main() 

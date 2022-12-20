@@ -1,6 +1,5 @@
 /* 
-  2) Suponha que um programa declara as variáveis e faz atribuições conforme as instruções a seguir. 
-  Desenhe as variáveis com os seus respectivos conteúdos finais. 
+  Exercício 2 
 */
 #include <stdio.h>
 

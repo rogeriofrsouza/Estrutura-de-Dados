@@ -1,6 +1,7 @@
-/* 3) Considerando as definições a seguir, indique as instruções requeridas nos itens de a) até f). */
+/* 
+  Exercício 3 
+*/
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -11,6 +12,8 @@ typedef struct regProd
   double valor;
   int qtdes[12];
 } TProd;
+
+void LimpaBuffer();
 
 int main() 
 {      
@@ -34,33 +37,31 @@ int main()
   vProd.qtdes[9] = 32;
   vProd.qtdes[10] = 10;
   vProd.qtdes[11] = 29;
-
-  /*
-    for (i = 0; i < 12; i++)
-      vProd.qtdes[i] = rand() % 100;
-  */
   
-  printf("Número: %d\nDescrição: %s\nValor: R$%.2lf", vProd.num, vProd.descr, vProd.valor);
+  printf("a)\nNúmero: %d\nDescrição: %s\nValor: R$%.2lf", vProd.num, vProd.descr, vProd.valor);
   printf("\nQuantidades:");
 
   for (i = 0; i < 12; i++)
     printf(" %d", vProd.qtdes[i]);
 
-  printf("\n------------------------------------");
+  printf("\n------------------------------------\n");
 
   /* b) Editar todos os dados da variável vProd por meio de scanf(...) e fgets(...) */
-  printf("\n\nEditar variável vProd");
+  printf("\nb)");
   
   printf("\nNúmero: ");
   scanf("%d", &vProd.num);
 
-  printf("\nDescrição: ");
-  fgets(vProd.descr, 25, stdin);
+  /* Limpa buffer de entrada para fgets() */
+  LimpaBuffer();
 
-  printf("\nValor: ");
+  printf("Descrição: ");
+  fgets(vProd.descr, 24, stdin);
+
+  printf("Valor: ");
   scanf("%lf", &vProd.valor);
 
-  printf("------------------------------------");
+  printf("------------------------------------\n");
 
   /* c) Determinar a soma das quantidades, a menor quantidade e a maior quantidade. */
   soma = 0;
@@ -77,34 +78,41 @@ int main()
       menor = vProd.qtdes[i];
   }
 
-  printf("\n\nSoma das quantidades: %d\nMenor quantidade: %d\nMaior quantidade: %d", soma, menor, maior);
-  printf("\n------------------------------------");
+  printf("\nc)\nSoma das quantidades: %d\nMenor quantidade: %d\nMaior quantidade: %d", soma, menor, maior);
+  printf("\n------------------------------------\n");
 
   /* d) Converter o conteúdo do membro descr para maiúsculas. */
   for (i = 0; vProd.descr[i] != '\0'; i++)
     vProd.descr[i] = toupper(vProd.descr[i]);
 
-  printf("\n\nNova descrição: %s", vProd.descr);
-  printf("------------------------------------");
+  printf("\nd)\nNova descrição: %s", vProd.descr);
+  printf("\n------------------------------------\n");
 
   /* e) Por meio de um looping for (...) colocar zero em todos os elementos do membro qtdes. */
   for (i = 0; i < 12; i++)
     vProd.qtdes[i] = 0;
 
-  printf("\n\nQuantidades zeradas:");
+  printf("\ne)\nQuantidades zeradas:");
 
   for (i = 0; i < 12; i++)
     printf(" %d", vProd.qtdes[i]);
   
-  printf("\n------------------------------------");
+  printf("\n------------------------------------\n");
 
   /* f) Inicializar a variável vProd, colocando zeros nos dados numéricos e uma string de comprimento zero na descrição. */
   vProd.num = 0;
   strcpy(vProd.descr, "");
   vProd.valor = 0.0;
 
-  printf("\n\nNúmero: %d\nDescrição: %s\nValor: R$%.2lf", vProd.num, vProd.descr, vProd.valor);
+  printf("\nf)\nNúmero: %d\nDescrição: %s\nValor: R$%.2lf", vProd.num, vProd.descr, vProd.valor);
   printf("\n------------------------------------");
 
   return 0;
+}
+
+void LimpaBuffer()
+{ 
+  while (getchar()!='\n');
+  
+  return;
 }

@@ -1,58 +1,50 @@
 /* 
-  7) Suponha que temos uma subrotina que recebeu como seu primeiro parâmetro um vetor, cujos elementos são do tipo struct regDados, 
-  e um valor a ser pesquisado nesse vetor como sendo o seu segundo parâmetro. Após feita a pesquisa, o valor foi encontrado, 
-  e temos o ponteiro x indicando o endereço de memória desse elemento que contém o dado desejado. 
-  Qual a instrução que calcularia quantos bytes existem entre o início do array na memória e o início do elemento onde o valor foi encontrado? 
-  Assuma que o nome do primeiro parâmetro formal é v.
+  Exercício 7
 */
 #include <stdio.h>
 
-#define MAX 50
+#define MAX 5
 
 typedef struct regDados 
 { 
   int info;
-} Dados;
+} TDados;
 
-Dados * Pesquisar(Dados *, int);
+TDados * Pesquisar(TDados *, int);
 
 int main() 
 {
-  Dados vet[MAX], *x;
-  int b, cont = 0, i;
+  TDados vet[MAX], *x;
+  int cont = 0, b;
   
-  /* inicializa o vetor */
+  /* inicializando o vetor */
   vet[0].info = 2;
   vet[1].info = 7;
   vet[2].info = 3;
   vet[3].info = 8;
+  vet[4].info = 12;
 
-  /* pesquisa se o valor está na lista */
+  /* pesquisando se o valor está na lista */
   x = Pesquisar(vet, 8);
 
-  for (i = 0; i < MAX; i++)
-  {
-    if (&vet[i] != x)
-      cont++;
-    else
-      break;
-  }
+  while (cont < MAX && &vet[cont] != x) 
+    cont++;
 
-  b = cont * sizeof(Dados);
-  printf("Bytes entre o início do array na memória e o início do elemento encontrado: %d", b);
+  b = cont * sizeof(TDados);
+  printf("Bytes entre o início do array na memória e o elemento encontrado: %d", b);
 
   return 0;
 }
 
-Dados * Pesquisar(Dados *vet, int valor)
+TDados * Pesquisar(TDados *v, int n)
 {
   int i = 0;
 
-  while (i < MAX && vet[i].info != valor)
+  while (i < MAX && v[i].info != n)
     i++;
 
   if (i == MAX)
     return NULL;
 
-  return &vet[i];
+  return &v[i];
 }

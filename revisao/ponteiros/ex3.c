@@ -1,6 +1,5 @@
 /* 
-  3) Considerando as definições em C apresentadas a seguir, 
-  faça testes em programas e responda às questões formuladas. 
+  Exercício 3 
 */
 #include <stdio.h>
 

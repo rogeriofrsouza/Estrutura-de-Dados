@@ -1,7 +1,5 @@
 /*
-  Considere as variáveis declaradas no trecho de código a seguir. 
-  Faça um desenho ilustrando essas variáveis e seus conteúdos na situação apresentada 
-  e depois responda às questões formuladas.
+  Exercício 5
 */
 #include <stdio.h>
 #include <string.h>
@@ -17,7 +15,7 @@ int main()
   p1 = &texto[6];
   p2 = &descr[0];
 
-  scanf("%s", p2); /* O usuário digita "goiaba" aqui */
+  scanf("%s", p2); // O usuário digita "goiaba" aqui
   strcpy(&texto[6], " de trapo");
 
   return 0;
@@ -26,10 +24,10 @@ int main()
 /*
   a) Considerando que no primeiro scanf() o usuário digitou "Banana", qual o conteúdo da variável palavra após essa entrada de dados? 
   Qual seria o resultado da instrução strlen(palavra) nesse caso? E qual o resultado para strlen(&palavra[3])?
-  R: palavra = "xxxBanana", strlen(palavra) = 9, strlen(&palavra[3]) = 6.
+  R: palavra = "xxxBanana"; strlen(palavra) = 9; strlen(&palavra[3]) = 6;
 
   b) Qual o conteúdo da variável descr?
-  R: descr = goiaba.
+  R: goiaba.
 
   c) Por que a chamada a scanf() não tem '&' quando o conteúdo digitado destina-se a uma string?
   R: Porque o nome de uma variável do tipo vetor é um ponteiro para o endereço da memória de seu primeiro índice, não necessitando do operador '&'.

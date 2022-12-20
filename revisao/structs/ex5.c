@@ -1,8 +1,5 @@
 /* 
-  5) Escreva a instrução para definir um tipo de dados estruturado contendo: 
-  um código numérico de tipo inteiro, um nome de pessoa de até 40 caracteres úteis, 
-  a data de nascimento da pessoa (que deverá ser do tipo da struct definida no exercício 1 desta atividade),
-  o sexo ('M' ou 'F') e o limite de crédito (um número real de precisão simples).
+  Exercício 5
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,11 +22,11 @@ int main()
 {
   TCliente cliente;
 
-  cliente.codigo = 20;
+  cliente.codigo = rand() % 100;
   strcpy(cliente.nome, "Senhor Barriga Pançudo");
 
-  cliente.dataNasc.dia = 05;
-  cliente.dataNasc.mes = 12;
+  cliente.dataNasc.dia = 5;
+  cliente.dataNasc.mes = 7;
   cliente.dataNasc.ano = 2005;
 
   cliente.sexo = 'M';
@@ -38,9 +35,9 @@ int main()
   printf("Dados do cliente\n\n");
   printf("Código: %d\n", cliente.codigo);
   printf("Nome: %s\n", cliente.nome);
-  printf("Data de nascimento: %hhu/%hhu/%hu\n", cliente.dataNasc.dia, 
-                                                cliente.dataNasc.mes, 
-                                                cliente.dataNasc.ano);
+  printf("Data de nascimento: %02hhu/%02hhu/%hu\n", cliente.dataNasc.dia, 
+                                                    cliente.dataNasc.mes, 
+                                                    cliente.dataNasc.ano);
   printf("Sexo: %c\n", cliente.sexo);
   printf("Limite de crédito: R$%.2f\n", cliente.limiteCred);
 

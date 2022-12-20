@@ -1,18 +1,18 @@
-/* 6) Escreva as instruções necessárias em linguagem C para produzir a situação apresentada na figura. */
+/* 
+  Exercício 6 
+*/
 #include <stdio.h>
 
 int main()
 {
-  float valor, *a, *b, *c;
+  float **c, **b, *a, valor;
 
   valor = 293.04;
   a = &valor;
-  b = a;
-  c = b;
+  b = &a;
+  c = &b;
 
-  printf("C: %f", *c);
-  printf("B: %f\n", *b);
-  printf("A: %f\n", *a);
+  printf("Valor: %f\na: %p\nb: %p\nc: %p", *a, a, b, c);
 
   return 0;
 }

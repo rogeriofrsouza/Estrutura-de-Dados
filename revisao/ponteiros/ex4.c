@@ -1,6 +1,5 @@
 /* 
-  4) Dado o seguinte programa escrito em C: 
-  Qual é a resposta que será impressa na tela?
+  Exercício 4
 */
 #include <stdio.h>
 
@@ -11,9 +10,9 @@ int main()
   p = &n[0];
   p++;
 
-  printf("Valor: %d\n", *p);  // 8
+  printf("Valor: %d\n", *p);
   (*p)++;
-  printf("Valor: %d", *p);  // 9
+  printf("Valor: %d", *p);
 
   /* n = {7, 9, 9} */
 

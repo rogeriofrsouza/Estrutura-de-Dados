@@ -1,6 +1,5 @@
 /* 
-  6) Para a variável clientes desenhada a seguir, e cuja definição se encontra especificada no código em C fornecido, 
-  escreva as instruções capazes de atribuir todos os valores indicados na figura.
+  Exercício 6
 */
 #include <stdio.h>
 #include <string.h>
@@ -23,9 +22,11 @@ int main()
   TCliente clientes[20];
   int i, j;
 
-  for (i = 0; i < 20; i++) 
+  for (i = 0; i < 20; i++)
+  {
     for (j = 0; j < 3; j++)
       clientes[i].qtdes[j] = 0;
+  }
 
   clientes[0].codigo = 2293;
   strcpy(clientes[0].nome, "João da Silva");

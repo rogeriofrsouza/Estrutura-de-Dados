@@ -1,6 +1,5 @@
 /* 
-  4) Declare um vetor chamado produtos, com 10 elementos do tipo TProd conforme definido no exercício anterior. 
-  Depois escreva as instruções para:
+  Exercício 4
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +12,7 @@ typedef struct regProd
   int qtdes[12];
 } TProd;
 
-int main() 
+int main()
 {
   TProd produtos[10];
   int i, soma;
