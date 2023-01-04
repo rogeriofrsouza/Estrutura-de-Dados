@@ -1,4 +1,4 @@
-/* Procura ocorrência de sub-cadeia no arquivo */
+/* Procura ocorrência de sub-cadeia de caractere no arquivo */
 
 #include <stdio.h>
 #include <string.h>
@@ -10,18 +10,18 @@ int main(void)
   FILE *fp;
 
   /* pedindo ao usuário o nome do arquivo e a sub-cadeia */
-  printf("Digite o nome do arquivo de entrada: ");
+  printf("Digite o nome do arquivo de entrada:\n");
   scanf("%120s", entrada);
 
-  printf("Digite a sub-cadeia: ");
-  scanf("%120s", subcadeia);
+  printf("\nDigite a sub-cadeia:\n");
+  scanf(" %120[^\n]", subcadeia);
 
   /* abrindo arquivo para leitura */
   fp = fopen(entrada, "rt");
 
   if (fp == NULL)
   {
-    printf("Não foi possível abrir arquivo");
+    printf("\nNão foi possível abrir arquivo");
     return 1;
   }
 
@@ -42,9 +42,9 @@ int main(void)
 
   /* exibindo saída */
   if (achou)
-    printf("Achou na linha %d", n);
+    printf("\nAchou na linha %d", n);
   else
-    printf("Não achou");
+    printf("\nNão achou");
 
   return 0;
 }

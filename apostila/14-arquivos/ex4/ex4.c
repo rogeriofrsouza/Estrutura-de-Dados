@@ -5,12 +5,11 @@
 
 int main(void)
 {
-  char c;
+  char c, linha[121];
   float v1, v2, area;
   FILE *fp;
-  char linha[121];
 
-  fp = fopen("entrada.txt", "rt");
+  fp = fopen("file.txt", "rt");
 
   while (fgets(linha, 121, fp))
   {

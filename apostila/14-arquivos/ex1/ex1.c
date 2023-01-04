@@ -4,11 +4,11 @@
 
 int main(void)
 {
-  int c, nlinhas = 1;
+  int c, nlinhas = 0;
   FILE *fp;
 
   /* abrindo arquivo para leitura */
-  fp = fopen("entrada.txt", "rt");
+  fp = fopen("file.txt", "rt");
 
   if (fp == NULL)
   {
@@ -27,7 +27,7 @@ int main(void)
   fclose(fp);
 
   /* exibindo resultado na tela */
-  printf("Número de linhas = %d", nlinhas);
+  printf("Número de linhas = %d\n", nlinhas);
 
   return 0;
 }

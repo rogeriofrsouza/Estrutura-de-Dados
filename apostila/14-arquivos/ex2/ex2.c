@@ -1,4 +1,4 @@
-/* Converte arquivo para maiúsculas */
+/* Converte conteúdo do arquivo para maiúsculas */
 
 #include <stdio.h>
 #include <ctype.h>
@@ -10,10 +10,10 @@ int main(void)
   FILE *e, *s;
 
   /* pedindo ao usuário os nomes dos arquivos */
-  printf("Digite o nome do arquivo de entrada: ");
+  printf("Digite o nome do arquivo de entrada:\n");
   scanf("%120s", entrada);
 
-  printf("Digite o nome do arquivo de saída: ");
+  printf("\nDigite o nome do arquivo de saída:\n");
   scanf("%120s", saida);
 
   /* abrindo arquivos para leitura e para escrita */
@@ -21,7 +21,7 @@ int main(void)
 
   if (e == NULL)
   {
-    printf("Não foi possível abrir arquivo de entrada");
+    printf("\nNão foi possível abrir arquivo de entrada");
     return 1;
   }
 
@@ -29,9 +29,9 @@ int main(void)
 
   if (s == NULL)
   {
-    printf("Não foi possível abrir arquivo de saída");
+    printf("\nNão foi possível abrir arquivo de saída");
     fclose(e);
-    return 1;
+    return 2;
   }
 
   /* lendo entrada e escrevendo na saída */
