@@ -12,7 +12,7 @@ typedef struct regAluno
   char nome[81], curso[11], email[41];
 } TAluno;
 
-void bsort_gen(int, void *, int, int (*) (void *, void *));
+void BolhaGen(int, void *, int, int (*) (void *, void *));
 int ComparaAluno(void *, void *);
 void * Acessa(void *, int, int);
 void Troca(void *, void *, int);
@@ -40,7 +40,7 @@ int main(void)
     alunos[i] = aux;
   }
 
-  bsort_gen(3, alunos, sizeof(TAluno *), ComparaAluno);
+  BolhaGen(3, alunos, sizeof(TAluno *), ComparaAluno);
 
   printf("\nVetor ordenado:\n\n");
 
@@ -56,7 +56,7 @@ int main(void)
 }
 
 /* Ordenação bolha genérica */
-void bsort_gen(int n, void *v, int tam, int (*ComparaAluno) (void *, void *))
+void BolhaGen(int n, void *v, int tam, int (*ComparaAluno) (void *, void *))
 {
   int i, j, fez_troca;
 
@@ -91,11 +91,11 @@ void * Acessa(void *v, int i, int tam)
 
 int ComparaAluno(void *a, void *b)
 {
-  TAluno **p1 = (TAluno **) a;
-  TAluno **p2 = (TAluno **) b;
+  TAluno **pa1 = (TAluno **) a;
+  TAluno **pa2 = (TAluno **) b;
 
-  TAluno *a1 = *p1;
-  TAluno *a2 = *p2;
+  TAluno *a1 = *pa1;
+  TAluno *a2 = *pa2;
 
   if (strcmp(a1->nome, a2->nome) > 0)
     return 1;

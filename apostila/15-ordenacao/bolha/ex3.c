@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-void bsort_gen(int, void *, int, int (*) (void *, void *));
+void BolhaGen(int, void *, int, int (*) (void *, void *));
 int ComparaFloat(void *, void *);
 void * Acessa(void *, int, int);
 void Troca(void *, void *, int);
@@ -15,7 +15,7 @@ int main(void)
   int i;
   float vet[8] = {2.3, 5.6, 7.2, 3.3, 10.6, 1.2, 8.4, 4.0};
 
-  bsort_gen(8, vet, sizeof(float), ComparaFloat);
+  BolhaGen(8, vet, sizeof(float), ComparaFloat);
 
   printf("Vetor ordenado: ");
 
@@ -26,7 +26,7 @@ int main(void)
 }
 
 /* Ordenação bolha genérica */
-void bsort_gen(int n, void *v, int tam, int (*ComparaFloat) (void *, void *))
+void BolhaGen(int n, void *v, int tam, int (*ComparaFloat) (void *, void *))
 {
   int i, j, fez_troca;
 

@@ -2,13 +2,13 @@
 
 #include <stdio.h>
 
-void bsort(int, int *);
+void Bolha(int, int *);
 
 int main(void)
 {
   int c, vet[8] = {25, 48, 37, 12, 57, 86, 33, 92};
 
-  bsort(8, vet);
+  Bolha(8, vet);
 
   printf("Vetor ordenado: ");
 
@@ -19,7 +19,7 @@ int main(void)
 }
 
 /* Ordenação bolha (bubble sort) */
-void bsort(int n, int *v)
+void Bolha(int n, int *v)
 {
   int i, j, troca, temp;
 

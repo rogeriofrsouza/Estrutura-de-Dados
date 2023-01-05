@@ -5,13 +5,13 @@
 
 #include <stdio.h>
 
-void bsort_rec(int, int *);
+void BolhaRec(int, int *);
 
 int main(void)
 {
   int c, vet[8] = {25, 48, 37, 12, 57, 86, 33, 92};
 
-  bsort_rec(8, vet);
+  BolhaRec(8, vet);
 
   printf("Vetor ordenado: ");
 
@@ -22,7 +22,7 @@ int main(void)
 }
 
 /* Ordenação bolha (bubble sort) */
-void bsort_rec(int n, int *v)
+void BolhaRec(int n, int *v)
 {
   int i, troca, temp;
 
@@ -41,5 +41,5 @@ void bsort_rec(int n, int *v)
   }
 
   if (troca != 0)  /* houve troca */
-    bsort_rec(n-1, v);
+    BolhaRec(n-1, v);
 }
