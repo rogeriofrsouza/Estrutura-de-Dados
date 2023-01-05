@@ -1,62 +1,32 @@
 /* 
   Testa algoritmo genérico de ordenação bolha 
-  Tipo estruturado TAluno
+  Tipo float
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-typedef struct regAluno
-{
-  char nome[81], curso[11], email[41];
-} TAluno;
-
-void bsort_gen(int, void *, int, int (*Compara) (void *, void *));
-int Compara(void *, void *);
+void bsort_gen(int, void *, int, int (*) (void *, void *));
+int ComparaFloat(void *, void *);
 void * Acessa(void *, int, int);
 void Troca(void *, void *, int);
 
 int main(void)
 {
   int i;
-  TAluno * alunos[3], *aux;
+  float vet[8] = {2.3, 5.6, 7.2, 3.3, 10.6, 1.2, 8.4, 4.0};
 
-  for (i = 0; i < 3; i++)
-  {
-    /* alocando estrutura e inicializando os campos */
-    aux = (TAluno *) malloc(sizeof(TAluno));
+  bsort_gen(8, vet, sizeof(float), ComparaFloat);
 
-    printf("\nAluno %d", i+1);
-    printf("\nNome: ");
-    scanf(" %80[^\n]", aux->nome);
+  printf("Vetor ordenado: ");
 
-    printf("Curso: ");
-    scanf("%10s", aux->curso);
-
-    printf("Email: ");
-    scanf("%40s", aux->email);
-
-    alunos[i] = aux;
-  }
-
-  bsort_gen(3, alunos, sizeof(TAluno *), Compara);
-
-  printf("\nVetor ordenado:\n\n");
-
-  for (i = 0; i < 3; i++)
-  {
-    printf("Aluno %d.\n", i+1);
-    printf("Nome: %s\n", alunos[i]->nome);
-    printf("Curso: %s\n", alunos[i]->curso);
-    printf("Email: %s\n\n", alunos[i]->email);
-  }
+  for (i = 0; i < 8; i++)
+    printf("%.1f  ", vet[i]);
 
   return 0;
 }
 
 /* Ordenação bolha genérica */
-void bsort_gen(int n, void *v, int tam, int (*Compara) (void *, void *))
+void bsort_gen(int n, void *v, int tam, int (*ComparaFloat) (void *, void *))
 {
   int i, j, fez_troca;
 
@@ -69,7 +39,7 @@ void bsort_gen(int n, void *v, int tam, int (*Compara) (void *, void *))
       void *p1 = Acessa(v, j, tam);
       void *p2 = Acessa(v, j+1, tam);
 
-      if (Compara(p1, p2))
+      if (ComparaFloat(p1, p2))  /* troca */
       {
         Troca(p1, p2, tam);
         fez_troca = 1;
@@ -89,20 +59,16 @@ void * Acessa(void *v, int i, int tam)
   return (void *) t;
 }
 
-int Compara(void *a, void *b)
+int ComparaFloat(void *a, void *b)
 {
-  TAluno **p1 = (TAluno **) a;
-  TAluno **p2 = (TAluno **) b;
+  float *p1 = (float *) a;
+  float *p2 = (float *) b;
 
-  TAluno *a1 = *p1;
-  TAluno *a2 = *p2;
-
-  if (strcmp(a1->nome, a2->nome) > 0)
+  if (*p1 > *p2)
     return 1;
   else
     return 0;
 }
-
 
 void Troca(void *a, void *b, int tam)
 {

@@ -40,6 +40,6 @@ void bsort_rec(int n, int *v)
     }
   }
 
-  if (troca != 0)  /* não houve troca */
+  if (troca != 0)  /* houve troca */
     bsort_rec(n-1, v);
 }
